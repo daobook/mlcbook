@@ -203,7 +203,7 @@ html_theme_options = {
     # "show_navbar_depth": 2,
     # -- 在侧边栏页脚添加额外的 HTML -------------------
     # （如果 `sbt-sidebar-footer.html `在 `html_sidebars` 中被使用）。
-    # "extra_navbar": extra_navbar,
+    "extra_navbar": extra_navbar,
     # -- 在每个页面的页脚添加额外的 HTML。---
     # "extra_footer": '',
     # （仅限开发人员）触发一些功能，使开发主题更容易。
