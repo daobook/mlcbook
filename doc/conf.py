@@ -181,7 +181,7 @@ html_theme_options = {
     # 如果你的文档被托管在一个子文件夹中，请使用以下配置：
     "path_to_docs": "doc/",  # 文档的路径，默认 `docs/``
     "repository_url": "https://github.com/daobook/mlcbook",
-    "repository_branch": "main",  # 文档库的分支，默认 `master`
+    "repository_branch": "xin",  # 文档库的分支，默认 `master`
     # -- 在导航栏添加一个按钮，链接到版本库的议题 ------------------------------
     # （与 `repository_url` 和 `repository_branch` 一起使用）
     "use_issues_button": True,  # 默认 `False`
