@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh_CN">
   <id>https://daobook.github.io/mlcbook</id>
   <title>Blog</title>
-  <updated>2022-07-05T02:05:22.385492+00:00</updated>
+  <updated>2022-07-08T11:15:36.165337+00:00</updated>
   <link href="https://daobook.github.io/mlcbook"/>
   <link href="https://daobook.github.io/mlcbook/posts/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.org/" version="0.10.25">ABlog</generator>
