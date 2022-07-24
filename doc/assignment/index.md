@@ -7,7 +7,6 @@
 :hidden:
 
 *
-assignment/index
 ```
 
 # 索引和表格
