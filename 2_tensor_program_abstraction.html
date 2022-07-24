@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Tensor Program Abstraction in Action &#8212; MLC 0.1 文档</title>
+    <title>张量程序抽象 &#8212; MLC 0.1 文档</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -21,7 +21,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
@@ -82,7 +82,7 @@ var addUtterances = () => {
 }
 commentsRunWhenDOMLoaded(addUtterances);
 </script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -91,51 +91,21 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="canonical" href="https://daobook.github.io/mlcbook/2_tensor_program_abstraction.html" />
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
     <link rel="next" title="张量程序抽象的学习案例：TensorIR" href="3_TensorIR_Tensor_Program_Abstraction_Case_Study_Action.html" />
-    <link rel="prev" title="MLC" href="index.html" /> 
+    <link rel="prev" title="MLC Book" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="zh_CN">
     
 
     <!-- Google Analytics -->
-     
-<link
-  rel="alternate"
-  type="application/atom+xml"
-  href="posts/atom.xml"
-  title="Blog"
-/>
- 
-<style type="text/css">
-  ul.ablog-archive {
-    list-style: none;
-    overflow: auto;
-    margin-left: 0px;
-  }
-  ul.ablog-archive li {
-    float: left;
-    margin-right: 5px;
-    font-size: 80%;
-  }
-  ul.postlist a {
-    font-style: italic;
-  }
-  ul.postlist-style-disc {
-    list-style-type: disc;
-  }
-  ul.postlist-style-none {
-    list-style-type: none;
-  }
-  ul.postlist-style-circle {
-    list-style-type: circle;
-  }
-</style>
-
+    
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <!-- Checkboxes to toggle the left sidebar -->
@@ -177,12 +147,32 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Tensor Program Abstraction in Action
+   张量程序抽象
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="3_TensorIR_Tensor_Program_Abstraction_Case_Study_Action.html">
    张量程序抽象的学习案例：TensorIR
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_Build_End_to_End_Model.html">
+   Ep4: End to End Model Execution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_Automatic_Program_Optimization.html">
+   Ep5: Automatic Program Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="assignment/assignment1.html">
+   MLC 作业 1: 端到端模型执行
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="assignment/index.html">
+   索引和表格
   </a>
  </li>
 </ul>
@@ -448,35 +438,35 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#install-packages">
-   Install packages
+  <a class="reference internal nav-link" href="#id2">
+   安装包
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#constructing-tensor-program">
-   Constructing Tensor Program
+  <a class="reference internal nav-link" href="#id3">
+   构建张量程序
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#build-and-run">
-     Build and run
+    <a class="reference internal nav-link" href="#id4">
+     构建并运行
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#transform-the-tensor-program">
-   Transform the Tensor Program
+  <a class="reference internal nav-link" href="#id5">
+   变换张量程序
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#constructing-tensor-program-using-tensor-expression">
-   Constructing Tensor Program using Tensor Expression
+  <a class="reference internal nav-link" href="#id6">
+   使用张量表达式构建张量程序
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#transforming-a-matrix-multiplication-program">
-   Transforming a matrix multiplication program
+  <a class="reference internal nav-link" href="#id7">
+   变换矩阵乘法程序
   </a>
  </li>
 </ul>
@@ -488,7 +478,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Tensor Program Abstraction in Action</h1>
+                <h1>张量程序抽象</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -499,35 +489,35 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#install-packages">
-   Install packages
+  <a class="reference internal nav-link" href="#id2">
+   安装包
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#constructing-tensor-program">
-   Constructing Tensor Program
+  <a class="reference internal nav-link" href="#id3">
+   构建张量程序
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#build-and-run">
-     Build and run
+    <a class="reference internal nav-link" href="#id4">
+     构建并运行
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#transform-the-tensor-program">
-   Transform the Tensor Program
+  <a class="reference internal nav-link" href="#id5">
+   变换张量程序
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#constructing-tensor-program-using-tensor-expression">
-   Constructing Tensor Program using Tensor Expression
+  <a class="reference internal nav-link" href="#id6">
+   使用张量表达式构建张量程序
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#transforming-a-matrix-multiplication-program">
-   Transforming a matrix multiplication program
+  <a class="reference internal nav-link" href="#id7">
+   变换矩阵乘法程序
   </a>
  </li>
 </ul>
@@ -539,71 +529,71 @@ title="Print to PDF"
             <main id="main-content" role="main">
                 
               <div>
-                 <p><a href="https://colab.research.google.com/github/mlc-ai/notebooks/blob/main/2_tensor_program_abstraction.ipynb" target="_parent"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<section class="tex2jax_ignore mathjax_ignore" id="tensor-program-abstraction-in-action">
-<h1>Tensor Program Abstraction in Action<a class="headerlink" href="#tensor-program-abstraction-in-action" title="永久链接至标题">#</a></h1>
-<section id="install-packages">
-<h2>Install packages<a class="headerlink" href="#install-packages" title="永久链接至标题">#</a></h2>
-<p>For the purpose of this course, we will use some on-going development in tvm, which is an open source machine learning compilation framework. We provide the following command to install a packaged version for mlc course.</p>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>张量程序抽象<a class="headerlink" href="#id1" title="永久链接至标题">#</a></h1>
+<section id="id2">
+<h2>安装包<a class="headerlink" href="#id2" title="永久链接至标题">#</a></h2>
+<p>提供以下命令来安装 mlc 课程的打包版本。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!python3 -m  pip install mlc-ai-nightly -f https://mlc.ai/wheels
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python3 -m  pip install mlc-ai-nightly -f https://mlc.ai/wheels
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
-Looking in links: https://mlc.ai/wheels
-Requirement already satisfied: mlc-ai-nightly in /usr/local/lib/python3.7/dist-packages (0.9.dev1660+g1883c5b91)
-Requirement already satisfied: numpy in /usr/local/lib/python3.7/dist-packages (from mlc-ai-nightly) (1.21.6)
-Requirement already satisfied: psutil in /usr/local/lib/python3.7/dist-packages (from mlc-ai-nightly) (5.4.8)
-Requirement already satisfied: attrs in /usr/local/lib/python3.7/dist-packages (from mlc-ai-nightly) (21.4.0)
-Requirement already satisfied: decorator in /usr/local/lib/python3.7/dist-packages (from mlc-ai-nightly) (4.4.2)
-Requirement already satisfied: tornado in /usr/local/lib/python3.7/dist-packages (from mlc-ai-nightly) (5.1.1)
-Requirement already satisfied: scipy in /usr/local/lib/python3.7/dist-packages (from mlc-ai-nightly) (1.4.1)
-Requirement already satisfied: cloudpickle in /usr/local/lib/python3.7/dist-packages (from mlc-ai-nightly) (1.3.0)
-Requirement already satisfied: synr==0.6.0 in /usr/local/lib/python3.7/dist-packages (from mlc-ai-nightly) (0.6.0)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in links: https://mlc.ai/wheels
+Requirement already satisfied: mlc-ai-nightly in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (0.9.dev1664+g1f3985de0)
+Requirement already satisfied: decorator in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (5.1.1)
+Requirement already satisfied: numpy in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (1.23.1)
+Requirement already satisfied: attrs in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (21.4.0)
+Requirement already satisfied: scipy in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (1.8.1)
+Requirement already satisfied: cloudpickle in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (2.1.0)
+Requirement already satisfied: synr==0.6.0 in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (0.6.0)
+Requirement already satisfied: psutil in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (5.9.1)
+Requirement already satisfied: tornado in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (6.1)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="constructing-tensor-program">
-<h2>Constructing Tensor Program<a class="headerlink" href="#constructing-tensor-program" title="永久链接至标题">#</a></h2>
-<p>Let us begin by constructing a tensor program that performs addition among two vectors.</p>
+<section id="id3">
+<h2>构建张量程序<a class="headerlink" href="#id3" title="永久链接至标题">#</a></h2>
+<p>从构造执行两个向量的加法的张量程序开始。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tvm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tvm</span>
 <span class="kn">from</span> <span class="nn">tvm.ir.module</span> <span class="kn">import</span> <span class="n">IRModule</span>
 <span class="kn">from</span> <span class="nn">tvm.script</span> <span class="kn">import</span> <span class="n">tir</span> <span class="k">as</span> <span class="n">T</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Code</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">ir_module</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">ir_module</span>
 <span class="k">class</span> <span class="nc">MyModule</span><span class="p">:</span>
     <span class="nd">@T</span><span class="o">.</span><span class="n">prim_func</span>
     <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> 
              <span class="n">B</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> 
              <span class="n">C</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">]):</span>
-        <span class="c1"># extra annotations for the function</span>
+        <span class="c1"># 函数的额外注解</span>
         <span class="n">T</span><span class="o">.</span><span class="n">func_attr</span><span class="p">({</span><span class="s2">&quot;global_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;main&quot;</span><span class="p">,</span> <span class="s2">&quot;tir.noalias&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">128</span><span class="p">):</span>
             <span class="k">with</span> <span class="n">T</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">):</span>
-                <span class="c1"># declare a data parallel iterator on spatial domain</span>
+                <span class="c1"># 在 spatial 域中声明数据并行迭代器</span>
                 <span class="n">vi</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
                 <span class="n">C</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>TVMScript is a way for us to express tensor program in python ast. Note that this code do not actually correspond to a python program, but a tensor program  that can be used in MLC process. The language is designed to align with python syntax with additional structures to facilitate analysis and transformation.</p>
+<p>TVMScript 是用 Python ast 表达张量程序的方式。注意，这段代码实际上并不对应于 python 程序，而是可以在 MLC 进程中使用的张量程序。该语言被设计成与 python 语法保持一致的附加结构，以方便分析和变换。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">MyModule</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">MyModule</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -613,40 +603,112 @@ Requirement already satisfied: synr==0.6.0 in /usr/local/lib/python3.7/dist-pack
 </div>
 </div>
 </div>
-<p>MyModule is an instance of an <strong>IRModule</strong> data structure, which is used to hold a collection of tensor functions.</p>
-<p>We can use the script function get a string based representation of the IRModule. This function is quite useful for inspecting the module during each step of transformation.</p>
+<p><code class="docutils literal notranslate"><span class="pre">MyModule</span></code> 是 <strong>IRModule</strong> 数据结构的实例（用来保存张量函数的集合）。</p>
+<p>可以使用 <code class="docutils literal notranslate"><span class="pre">script</span></code> 函数获得基于 IRModule 表示的字符串。这个函数对于在变换的每个步骤中检查模块非常有用。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">MyModule</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Code</span><span class="p">(</span><span class="n">MyModule</span><span class="o">.</span><span class="n">script</span><span class="p">(),</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>@tvm.script.ir_module
-class Module:
-    @tir.prim_func
-    def main(A_1: tir.Buffer[128, &quot;float32&quot;], B_1: tir.Buffer[128, &quot;float32&quot;], C_1: tir.Buffer[128, &quot;float32&quot;]) -&gt; None:
-        # function attr dict
-        tir.func_attr({&quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True})
-        # body
-        # with tir.block(&quot;root&quot;)
-        for i in tir.serial(128):
-            with tir.block(&quot;C&quot;):
-                vi = tir.axis.spatial(128, i)
-                tir.reads(A_1[vi], B_1[vi])
-                tir.writes(C_1[vi])
-                C_1[vi] = A_1[vi] + B_1[vi]
+<div class="output text_html"><style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.output_html .hll { background-color: #ffffcc }
+.output_html { background: #f8f8f8; }
+.output_html .c { color: #3D7B7B; font-style: italic } /* Comment */
+.output_html .err { border: 1px solid #FF0000 } /* Error */
+.output_html .k { color: #008000; font-weight: bold } /* Keyword */
+.output_html .o { color: #666666 } /* Operator */
+.output_html .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.output_html .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.output_html .cp { color: #9C6500 } /* Comment.Preproc */
+.output_html .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.output_html .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.output_html .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.output_html .gd { color: #A00000 } /* Generic.Deleted */
+.output_html .ge { font-style: italic } /* Generic.Emph */
+.output_html .gr { color: #E40000 } /* Generic.Error */
+.output_html .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.output_html .gi { color: #008400 } /* Generic.Inserted */
+.output_html .go { color: #717171 } /* Generic.Output */
+.output_html .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.output_html .gs { font-weight: bold } /* Generic.Strong */
+.output_html .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.output_html .gt { color: #0044DD } /* Generic.Traceback */
+.output_html .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.output_html .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.output_html .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.output_html .kp { color: #008000 } /* Keyword.Pseudo */
+.output_html .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.output_html .kt { color: #B00040 } /* Keyword.Type */
+.output_html .m { color: #666666 } /* Literal.Number */
+.output_html .s { color: #BA2121 } /* Literal.String */
+.output_html .na { color: #687822 } /* Name.Attribute */
+.output_html .nb { color: #008000 } /* Name.Builtin */
+.output_html .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.output_html .no { color: #880000 } /* Name.Constant */
+.output_html .nd { color: #AA22FF } /* Name.Decorator */
+.output_html .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.output_html .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.output_html .nf { color: #0000FF } /* Name.Function */
+.output_html .nl { color: #767600 } /* Name.Label */
+.output_html .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.output_html .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.output_html .nv { color: #19177C } /* Name.Variable */
+.output_html .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.output_html .w { color: #bbbbbb } /* Text.Whitespace */
+.output_html .mb { color: #666666 } /* Literal.Number.Bin */
+.output_html .mf { color: #666666 } /* Literal.Number.Float */
+.output_html .mh { color: #666666 } /* Literal.Number.Hex */
+.output_html .mi { color: #666666 } /* Literal.Number.Integer */
+.output_html .mo { color: #666666 } /* Literal.Number.Oct */
+.output_html .sa { color: #BA2121 } /* Literal.String.Affix */
+.output_html .sb { color: #BA2121 } /* Literal.String.Backtick */
+.output_html .sc { color: #BA2121 } /* Literal.String.Char */
+.output_html .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.output_html .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.output_html .s2 { color: #BA2121 } /* Literal.String.Double */
+.output_html .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.output_html .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.output_html .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.output_html .sx { color: #008000 } /* Literal.String.Other */
+.output_html .sr { color: #A45A77 } /* Literal.String.Regex */
+.output_html .s1 { color: #BA2121 } /* Literal.String.Single */
+.output_html .ss { color: #19177C } /* Literal.String.Symbol */
+.output_html .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.output_html .fm { color: #0000FF } /* Name.Function.Magic */
+.output_html .vc { color: #19177C } /* Name.Variable.Class */
+.output_html .vg { color: #19177C } /* Name.Variable.Global */
+.output_html .vi { color: #19177C } /* Name.Variable.Instance */
+.output_html .vm { color: #19177C } /* Name.Variable.Magic */
+.output_html .il { color: #666666 } /* Literal.Number.Integer.Long */</style><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">ir_module</span>
+<span class="k">class</span> <span class="nc">Module</span><span class="p">:</span>
+    <span class="nd">@tir</span><span class="o">.</span><span class="n">prim_func</span>
+    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">B</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">C</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># function attr dict</span>
+        <span class="n">tir</span><span class="o">.</span><span class="n">func_attr</span><span class="p">({</span><span class="s2">&quot;global_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;main&quot;</span><span class="p">,</span> <span class="s2">&quot;tir.noalias&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+        <span class="c1"># body</span>
+        <span class="c1"># with tir.block(&quot;root&quot;)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">serial</span><span class="p">(</span><span class="mi">128</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">):</span>
+                <span class="n">vi</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                <span class="n">tir</span><span class="o">.</span><span class="n">reads</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">vi</span><span class="p">],</span> <span class="n">B</span><span class="p">[</span><span class="n">vi</span><span class="p">])</span>
+                <span class="n">tir</span><span class="o">.</span><span class="n">writes</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="n">vi</span><span class="p">])</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span>
     
 </pre></div>
+</div></div>
 </div>
-</div>
-</div>
-<section id="build-and-run">
-<h3>Build and run<a class="headerlink" href="#build-and-run" title="永久链接至标题">#</a></h3>
-<p>Any any time point, we can turn an IRModule to runnable functions by calling a build function.</p>
+<section id="id4">
+<h3>构建并运行<a class="headerlink" href="#id4" title="永久链接至标题">#</a></h3>
+<p>在任何时间点，都可以通过调用 <code class="docutils literal notranslate"><span class="pre">build</span></code> 函数将 IRModule 变换为可运行函数。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rt_mod</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">MyModule</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">)</span>  <span class="c1"># The module for CPU backends.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rt_mod</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">MyModule</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">)</span>  <span class="c1"># CPU 后端的模块</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">rt_mod</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -657,58 +719,58 @@ class Module:
 </div>
 </div>
 </div>
-<p>After build, mod contains a collection of runnable functions. We can retrieve each function by its name.</p>
+<p>构建后，mod 包含了一组可运行的函数。可以通过函数名检索每个函数。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="o">=</span> <span class="n">rt_mod</span><span class="p">[</span><span class="s2">&quot;main&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="o">=</span> <span class="n">rt_mod</span><span class="p">[</span><span class="s2">&quot;main&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">func</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">func</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tvm.runtime.packed_func.PackedFunc at 0x7fed92a40fb0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tvm.runtime.packed_func.PackedFunc at 0x7fdd0e398980&gt;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">))</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">))</span> 
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">128</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">128</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span> 
 </pre></div>
 </div>
 </div>
 </div>
-<p>To invoke the function, we can create three NDArrays in the tvm runtime, and then invoke the generated function.</p>
+<p>要调用该函数，可以在 tvm 运行时中创建三个 ndarray，然后调用生成的函数。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 </pre></div>
@@ -747,12 +809,12 @@ class Module:
 </div>
 </section>
 </section>
-<section id="transform-the-tensor-program">
-<h2>Transform the Tensor Program<a class="headerlink" href="#transform-the-tensor-program" title="永久链接至标题">#</a></h2>
-<p>Now let us start to transform the Tensor Program. A tensor prigram can be transformed using an auxiliary data structure called schedule.</p>
+<section id="id5">
+<h2>变换张量程序<a class="headerlink" href="#id5" title="永久链接至标题">#</a></h2>
+<p>现在开始变换张量程序。张量程序可以使用一种称为调度（schedule）的辅助数据结构进行变换。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sch</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">Schedule</span><span class="p">(</span><span class="n">MyModule</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sch</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">Schedule</span><span class="p">(</span><span class="n">MyModule</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">sch</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -763,43 +825,115 @@ class Module:
 </div>
 </div>
 </div>
-<p>Let us first try to split the loops</p>
+<p>先试着划分循环：</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get block by its name</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 按名称获取块</span>
 <span class="n">block_c</span> <span class="o">=</span> <span class="n">sch</span><span class="o">.</span><span class="n">get_block</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
-<span class="c1"># Get loops surronding the block</span>
+<span class="c1"># 获取块周围的循环</span>
 <span class="p">(</span><span class="n">i</span><span class="p">,)</span> <span class="o">=</span> <span class="n">sch</span><span class="o">.</span><span class="n">get_loops</span><span class="p">(</span><span class="n">block_c</span><span class="p">)</span>
-<span class="c1"># Tile the loop nesting.</span>
+<span class="c1"># Tile 循环嵌套</span>
 <span class="n">i_0</span><span class="p">,</span> <span class="n">i_1</span><span class="p">,</span> <span class="n">i_2</span> <span class="o">=</span> <span class="n">sch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">factors</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
+<span class="n">Code</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="o">.</span><span class="n">script</span><span class="p">(),</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;Python&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>@tvm.script.ir_module
-class Module:
-    @tir.prim_func
-    def main(A_1: tir.Buffer[128, &quot;float32&quot;], B_1: tir.Buffer[128, &quot;float32&quot;], C_1: tir.Buffer[128, &quot;float32&quot;]) -&gt; None:
-        # function attr dict
-        tir.func_attr({&quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True})
-        # body
-        # with tir.block(&quot;root&quot;)
-        for i_0, i_1, i_2 in tir.grid(8, 4, 4):
-            with tir.block(&quot;C&quot;):
-                vi = tir.axis.spatial(128, i_0 * 16 + i_1 * 4 + i_2)
-                tir.reads(A_1[vi], B_1[vi])
-                tir.writes(C_1[vi])
-                C_1[vi] = A_1[vi] + B_1[vi]
+<div class="output text_html"><style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.output_html .hll { background-color: #ffffcc }
+.output_html { background: #f8f8f8; }
+.output_html .c { color: #3D7B7B; font-style: italic } /* Comment */
+.output_html .err { border: 1px solid #FF0000 } /* Error */
+.output_html .k { color: #008000; font-weight: bold } /* Keyword */
+.output_html .o { color: #666666 } /* Operator */
+.output_html .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.output_html .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.output_html .cp { color: #9C6500 } /* Comment.Preproc */
+.output_html .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.output_html .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.output_html .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.output_html .gd { color: #A00000 } /* Generic.Deleted */
+.output_html .ge { font-style: italic } /* Generic.Emph */
+.output_html .gr { color: #E40000 } /* Generic.Error */
+.output_html .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.output_html .gi { color: #008400 } /* Generic.Inserted */
+.output_html .go { color: #717171 } /* Generic.Output */
+.output_html .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.output_html .gs { font-weight: bold } /* Generic.Strong */
+.output_html .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.output_html .gt { color: #0044DD } /* Generic.Traceback */
+.output_html .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.output_html .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.output_html .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.output_html .kp { color: #008000 } /* Keyword.Pseudo */
+.output_html .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.output_html .kt { color: #B00040 } /* Keyword.Type */
+.output_html .m { color: #666666 } /* Literal.Number */
+.output_html .s { color: #BA2121 } /* Literal.String */
+.output_html .na { color: #687822 } /* Name.Attribute */
+.output_html .nb { color: #008000 } /* Name.Builtin */
+.output_html .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.output_html .no { color: #880000 } /* Name.Constant */
+.output_html .nd { color: #AA22FF } /* Name.Decorator */
+.output_html .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.output_html .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.output_html .nf { color: #0000FF } /* Name.Function */
+.output_html .nl { color: #767600 } /* Name.Label */
+.output_html .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.output_html .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.output_html .nv { color: #19177C } /* Name.Variable */
+.output_html .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.output_html .w { color: #bbbbbb } /* Text.Whitespace */
+.output_html .mb { color: #666666 } /* Literal.Number.Bin */
+.output_html .mf { color: #666666 } /* Literal.Number.Float */
+.output_html .mh { color: #666666 } /* Literal.Number.Hex */
+.output_html .mi { color: #666666 } /* Literal.Number.Integer */
+.output_html .mo { color: #666666 } /* Literal.Number.Oct */
+.output_html .sa { color: #BA2121 } /* Literal.String.Affix */
+.output_html .sb { color: #BA2121 } /* Literal.String.Backtick */
+.output_html .sc { color: #BA2121 } /* Literal.String.Char */
+.output_html .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.output_html .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.output_html .s2 { color: #BA2121 } /* Literal.String.Double */
+.output_html .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.output_html .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.output_html .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.output_html .sx { color: #008000 } /* Literal.String.Other */
+.output_html .sr { color: #A45A77 } /* Literal.String.Regex */
+.output_html .s1 { color: #BA2121 } /* Literal.String.Single */
+.output_html .ss { color: #19177C } /* Literal.String.Symbol */
+.output_html .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.output_html .fm { color: #0000FF } /* Name.Function.Magic */
+.output_html .vc { color: #19177C } /* Name.Variable.Class */
+.output_html .vg { color: #19177C } /* Name.Variable.Global */
+.output_html .vi { color: #19177C } /* Name.Variable.Instance */
+.output_html .vm { color: #19177C } /* Name.Variable.Magic */
+.output_html .il { color: #666666 } /* Literal.Number.Integer.Long */</style><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">ir_module</span>
+<span class="k">class</span> <span class="nc">Module</span><span class="p">:</span>
+    <span class="nd">@tir</span><span class="o">.</span><span class="n">prim_func</span>
+    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">B</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">C</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># function attr dict</span>
+        <span class="n">tir</span><span class="o">.</span><span class="n">func_attr</span><span class="p">({</span><span class="s2">&quot;global_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;main&quot;</span><span class="p">,</span> <span class="s2">&quot;tir.noalias&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+        <span class="c1"># body</span>
+        <span class="c1"># with tir.block(&quot;root&quot;)</span>
+        <span class="k">for</span> <span class="n">i_0</span><span class="p">,</span> <span class="n">i_1</span><span class="p">,</span> <span class="n">i_2</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">):</span>
+                <span class="n">vi</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">i_0</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">+</span> <span class="n">i_1</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">i_2</span><span class="p">)</span>
+                <span class="n">tir</span><span class="o">.</span><span class="n">reads</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">vi</span><span class="p">],</span> <span class="n">B</span><span class="p">[</span><span class="n">vi</span><span class="p">])</span>
+                <span class="n">tir</span><span class="o">.</span><span class="n">writes</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="n">vi</span><span class="p">])</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span>
     
 </pre></div>
+</div></div>
 </div>
-</div>
-</div>
-<p>We can also reorder the loops. Now we move loop i_2 to outside of i_1.</p>
+<p>也可以重新排序循环。把循环 i_2 移到 i_1 的外面。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sch</span><span class="o">.</span><span class="n">reorder</span><span class="p">(</span><span class="n">i_0</span><span class="p">,</span> <span class="n">i_2</span><span class="p">,</span> <span class="n">i_1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sch</span><span class="o">.</span><span class="n">reorder</span><span class="p">(</span><span class="n">i_0</span><span class="p">,</span> <span class="n">i_2</span><span class="p">,</span> <span class="n">i_1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -808,7 +942,7 @@ class Module:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>@tvm.script.ir_module
 class Module:
     @tir.prim_func
-    def main(A_1: tir.Buffer[128, &quot;float32&quot;], B_1: tir.Buffer[128, &quot;float32&quot;], C_1: tir.Buffer[128, &quot;float32&quot;]) -&gt; None:
+    def main(A: tir.Buffer[128, &quot;float32&quot;], B: tir.Buffer[128, &quot;float32&quot;], C: tir.Buffer[128, &quot;float32&quot;]) -&gt; None:
         # function attr dict
         tir.func_attr({&quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True})
         # body
@@ -816,65 +950,229 @@ class Module:
         for i_0, i_2, i_1 in tir.grid(8, 4, 4):
             with tir.block(&quot;C&quot;):
                 vi = tir.axis.spatial(128, i_0 * 16 + i_1 * 4 + i_2)
-                tir.reads(A_1[vi], B_1[vi])
-                tir.writes(C_1[vi])
-                C_1[vi] = A_1[vi] + B_1[vi]
+                tir.reads(A[vi], B[vi])
+                tir.writes(C[vi])
+                C[vi] = A[vi] + B[vi]
     
 </pre></div>
 </div>
 </div>
 </div>
-<p>Finally, we can add hints to the program generator that we want to vectorize the inner most loop.</p>
+<p>最后，可以向程序生成器添加要对最内部循环进行向量化的提示。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Code</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="o">.</span><span class="n">script</span><span class="p">(),</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>@tvm.script.ir_module
-class Module:
-    @tir.prim_func
-    def main(A_1: tir.Buffer[128, &quot;float32&quot;], B_1: tir.Buffer[128, &quot;float32&quot;], C_1: tir.Buffer[128, &quot;float32&quot;]) -&gt; None:
-        # function attr dict
-        tir.func_attr({&quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True})
-        # body
-        # with tir.block(&quot;root&quot;)
-        for i_0, i_2, i_1 in tir.grid(8, 4, 4):
-            with tir.block(&quot;C&quot;):
-                vi = tir.axis.spatial(128, i_0 * 16 + i_1 * 4 + i_2)
-                tir.reads(A_1[vi], B_1[vi])
-                tir.writes(C_1[vi])
-                C_1[vi] = A_1[vi] + B_1[vi]
+<div class="output text_html"><style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.output_html .hll { background-color: #ffffcc }
+.output_html { background: #f8f8f8; }
+.output_html .c { color: #3D7B7B; font-style: italic } /* Comment */
+.output_html .err { border: 1px solid #FF0000 } /* Error */
+.output_html .k { color: #008000; font-weight: bold } /* Keyword */
+.output_html .o { color: #666666 } /* Operator */
+.output_html .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.output_html .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.output_html .cp { color: #9C6500 } /* Comment.Preproc */
+.output_html .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.output_html .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.output_html .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.output_html .gd { color: #A00000 } /* Generic.Deleted */
+.output_html .ge { font-style: italic } /* Generic.Emph */
+.output_html .gr { color: #E40000 } /* Generic.Error */
+.output_html .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.output_html .gi { color: #008400 } /* Generic.Inserted */
+.output_html .go { color: #717171 } /* Generic.Output */
+.output_html .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.output_html .gs { font-weight: bold } /* Generic.Strong */
+.output_html .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.output_html .gt { color: #0044DD } /* Generic.Traceback */
+.output_html .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.output_html .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.output_html .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.output_html .kp { color: #008000 } /* Keyword.Pseudo */
+.output_html .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.output_html .kt { color: #B00040 } /* Keyword.Type */
+.output_html .m { color: #666666 } /* Literal.Number */
+.output_html .s { color: #BA2121 } /* Literal.String */
+.output_html .na { color: #687822 } /* Name.Attribute */
+.output_html .nb { color: #008000 } /* Name.Builtin */
+.output_html .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.output_html .no { color: #880000 } /* Name.Constant */
+.output_html .nd { color: #AA22FF } /* Name.Decorator */
+.output_html .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.output_html .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.output_html .nf { color: #0000FF } /* Name.Function */
+.output_html .nl { color: #767600 } /* Name.Label */
+.output_html .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.output_html .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.output_html .nv { color: #19177C } /* Name.Variable */
+.output_html .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.output_html .w { color: #bbbbbb } /* Text.Whitespace */
+.output_html .mb { color: #666666 } /* Literal.Number.Bin */
+.output_html .mf { color: #666666 } /* Literal.Number.Float */
+.output_html .mh { color: #666666 } /* Literal.Number.Hex */
+.output_html .mi { color: #666666 } /* Literal.Number.Integer */
+.output_html .mo { color: #666666 } /* Literal.Number.Oct */
+.output_html .sa { color: #BA2121 } /* Literal.String.Affix */
+.output_html .sb { color: #BA2121 } /* Literal.String.Backtick */
+.output_html .sc { color: #BA2121 } /* Literal.String.Char */
+.output_html .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.output_html .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.output_html .s2 { color: #BA2121 } /* Literal.String.Double */
+.output_html .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.output_html .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.output_html .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.output_html .sx { color: #008000 } /* Literal.String.Other */
+.output_html .sr { color: #A45A77 } /* Literal.String.Regex */
+.output_html .s1 { color: #BA2121 } /* Literal.String.Single */
+.output_html .ss { color: #19177C } /* Literal.String.Symbol */
+.output_html .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.output_html .fm { color: #0000FF } /* Name.Function.Magic */
+.output_html .vc { color: #19177C } /* Name.Variable.Class */
+.output_html .vg { color: #19177C } /* Name.Variable.Global */
+.output_html .vi { color: #19177C } /* Name.Variable.Instance */
+.output_html .vm { color: #19177C } /* Name.Variable.Magic */
+.output_html .il { color: #666666 } /* Literal.Number.Integer.Long */</style><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">ir_module</span>
+<span class="k">class</span> <span class="nc">Module</span><span class="p">:</span>
+    <span class="nd">@tir</span><span class="o">.</span><span class="n">prim_func</span>
+    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">B</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">C</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># function attr dict</span>
+        <span class="n">tir</span><span class="o">.</span><span class="n">func_attr</span><span class="p">({</span><span class="s2">&quot;global_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;main&quot;</span><span class="p">,</span> <span class="s2">&quot;tir.noalias&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+        <span class="c1"># body</span>
+        <span class="c1"># with tir.block(&quot;root&quot;)</span>
+        <span class="k">for</span> <span class="n">i_0</span><span class="p">,</span> <span class="n">i_2</span><span class="p">,</span> <span class="n">i_1</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">):</span>
+                <span class="n">vi</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">i_0</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">+</span> <span class="n">i_1</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">i_2</span><span class="p">)</span>
+                <span class="n">tir</span><span class="o">.</span><span class="n">reads</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">vi</span><span class="p">],</span> <span class="n">B</span><span class="p">[</span><span class="n">vi</span><span class="p">])</span>
+                <span class="n">tir</span><span class="o">.</span><span class="n">writes</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="n">vi</span><span class="p">])</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span>
     
 </pre></div>
-</div>
-</div>
+</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sch</span><span class="o">.</span><span class="n">parallel</span><span class="p">(</span><span class="n">i_0</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sch</span><span class="o">.</span><span class="n">parallel</span><span class="p">(</span><span class="n">i_0</span><span class="p">)</span>
+<span class="n">Code</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="o">.</span><span class="n">script</span><span class="p">(),</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.output_html .hll { background-color: #ffffcc }
+.output_html { background: #f8f8f8; }
+.output_html .c { color: #3D7B7B; font-style: italic } /* Comment */
+.output_html .err { border: 1px solid #FF0000 } /* Error */
+.output_html .k { color: #008000; font-weight: bold } /* Keyword */
+.output_html .o { color: #666666 } /* Operator */
+.output_html .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.output_html .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.output_html .cp { color: #9C6500 } /* Comment.Preproc */
+.output_html .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.output_html .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.output_html .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.output_html .gd { color: #A00000 } /* Generic.Deleted */
+.output_html .ge { font-style: italic } /* Generic.Emph */
+.output_html .gr { color: #E40000 } /* Generic.Error */
+.output_html .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.output_html .gi { color: #008400 } /* Generic.Inserted */
+.output_html .go { color: #717171 } /* Generic.Output */
+.output_html .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.output_html .gs { font-weight: bold } /* Generic.Strong */
+.output_html .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.output_html .gt { color: #0044DD } /* Generic.Traceback */
+.output_html .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.output_html .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.output_html .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.output_html .kp { color: #008000 } /* Keyword.Pseudo */
+.output_html .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.output_html .kt { color: #B00040 } /* Keyword.Type */
+.output_html .m { color: #666666 } /* Literal.Number */
+.output_html .s { color: #BA2121 } /* Literal.String */
+.output_html .na { color: #687822 } /* Name.Attribute */
+.output_html .nb { color: #008000 } /* Name.Builtin */
+.output_html .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.output_html .no { color: #880000 } /* Name.Constant */
+.output_html .nd { color: #AA22FF } /* Name.Decorator */
+.output_html .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.output_html .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.output_html .nf { color: #0000FF } /* Name.Function */
+.output_html .nl { color: #767600 } /* Name.Label */
+.output_html .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.output_html .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.output_html .nv { color: #19177C } /* Name.Variable */
+.output_html .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.output_html .w { color: #bbbbbb } /* Text.Whitespace */
+.output_html .mb { color: #666666 } /* Literal.Number.Bin */
+.output_html .mf { color: #666666 } /* Literal.Number.Float */
+.output_html .mh { color: #666666 } /* Literal.Number.Hex */
+.output_html .mi { color: #666666 } /* Literal.Number.Integer */
+.output_html .mo { color: #666666 } /* Literal.Number.Oct */
+.output_html .sa { color: #BA2121 } /* Literal.String.Affix */
+.output_html .sb { color: #BA2121 } /* Literal.String.Backtick */
+.output_html .sc { color: #BA2121 } /* Literal.String.Char */
+.output_html .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.output_html .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.output_html .s2 { color: #BA2121 } /* Literal.String.Double */
+.output_html .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.output_html .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.output_html .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.output_html .sx { color: #008000 } /* Literal.String.Other */
+.output_html .sr { color: #A45A77 } /* Literal.String.Regex */
+.output_html .s1 { color: #BA2121 } /* Literal.String.Single */
+.output_html .ss { color: #19177C } /* Literal.String.Symbol */
+.output_html .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.output_html .fm { color: #0000FF } /* Name.Function.Magic */
+.output_html .vc { color: #19177C } /* Name.Variable.Class */
+.output_html .vg { color: #19177C } /* Name.Variable.Global */
+.output_html .vi { color: #19177C } /* Name.Variable.Instance */
+.output_html .vm { color: #19177C } /* Name.Variable.Magic */
+.output_html .il { color: #666666 } /* Literal.Number.Integer.Long */</style><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">ir_module</span>
+<span class="k">class</span> <span class="nc">Module</span><span class="p">:</span>
+    <span class="nd">@tir</span><span class="o">.</span><span class="n">prim_func</span>
+    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">B</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">C</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># function attr dict</span>
+        <span class="n">tir</span><span class="o">.</span><span class="n">func_attr</span><span class="p">({</span><span class="s2">&quot;global_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;main&quot;</span><span class="p">,</span> <span class="s2">&quot;tir.noalias&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+        <span class="c1"># body</span>
+        <span class="c1"># with tir.block(&quot;root&quot;)</span>
+        <span class="k">for</span> <span class="n">i_0</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">parallel</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i_2</span><span class="p">,</span> <span class="n">i_1</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">):</span>
+                    <span class="n">vi</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">i_0</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">+</span> <span class="n">i_1</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">i_2</span><span class="p">)</span>
+                    <span class="n">tir</span><span class="o">.</span><span class="n">reads</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">vi</span><span class="p">],</span> <span class="n">B</span><span class="p">[</span><span class="n">vi</span><span class="p">])</span>
+                    <span class="n">tir</span><span class="o">.</span><span class="n">writes</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="n">vi</span><span class="p">])</span>
+                    <span class="n">C</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span>
+    
+</pre></div>
+</div></div>
 </div>
-<p>We can build and run the transformed program</p>
+<p>可以构建并运行变换后的程序</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">transformed_mod</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">)</span>  <span class="c1"># The module for CPU backends.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transformed_mod</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">)</span>  <span class="c1"># The module for CPU backends.</span>
 <span class="n">transformed_mod</span><span class="p">[</span><span class="s2">&quot;main&quot;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="constructing-tensor-program-using-tensor-expression">
-<h2>Constructing Tensor Program using Tensor Expression<a class="headerlink" href="#constructing-tensor-program-using-tensor-expression" title="永久链接至标题">#</a></h2>
-<p>In the previous example, we directly use TVMScript to construct the tensor program. In practice, it is usually helpful to construct these functions pragmatically from existing definitions. Tensor expression is an API that helps us to build some of the expression-like array computations.</p>
+<section id="id6">
+<h2>使用张量表达式构建张量程序<a class="headerlink" href="#id6" title="永久链接至标题">#</a></h2>
+<p>在前面的例子中，直接使用 TVMScript 来构造张量程序。在实践中，从现有定义实用地构造这些函数通常是有帮助的。张量表达式是一个 API，它可以帮助构建一些类似表达式的数组计算。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># namespace for tensor expression utility</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># namespace for tensor expression utility</span>
 <span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span>
 
 <span class="c1"># declare the computation using the expression API</span>
@@ -888,37 +1186,109 @@ class Module:
 <span class="n">func</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">with_attr</span><span class="p">(</span><span class="s2">&quot;global_symbol&quot;</span><span class="p">,</span> <span class="s2">&quot;main&quot;</span><span class="p">)</span>
 <span class="n">ir_mod_from_te</span> <span class="o">=</span> <span class="n">IRModule</span><span class="p">({</span><span class="s2">&quot;main&quot;</span><span class="p">:</span> <span class="n">func</span><span class="p">})</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">ir_mod_from_te</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
+<span class="n">Code</span><span class="p">(</span><span class="n">ir_mod_from_te</span><span class="o">.</span><span class="n">script</span><span class="p">(),</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>@tvm.script.ir_module
-class Module:
-    @tir.prim_func
-    def main(A_1: tir.Buffer[128, &quot;float32&quot;], B_1: tir.Buffer[128, &quot;float32&quot;], C_1: tir.Buffer[128, &quot;float32&quot;]) -&gt; None:
-        # function attr dict
-        tir.func_attr({&quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True})
-        # body
-        # with tir.block(&quot;root&quot;)
-        for i0 in tir.serial(128):
-            with tir.block(&quot;C&quot;):
-                i = tir.axis.spatial(128, i0)
-                tir.reads(A_1[i], B_1[i])
-                tir.writes(C_1[i])
-                C_1[i] = A_1[i] + B_1[i]
+<div class="output text_html"><style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.output_html .hll { background-color: #ffffcc }
+.output_html { background: #f8f8f8; }
+.output_html .c { color: #3D7B7B; font-style: italic } /* Comment */
+.output_html .err { border: 1px solid #FF0000 } /* Error */
+.output_html .k { color: #008000; font-weight: bold } /* Keyword */
+.output_html .o { color: #666666 } /* Operator */
+.output_html .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.output_html .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.output_html .cp { color: #9C6500 } /* Comment.Preproc */
+.output_html .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.output_html .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.output_html .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.output_html .gd { color: #A00000 } /* Generic.Deleted */
+.output_html .ge { font-style: italic } /* Generic.Emph */
+.output_html .gr { color: #E40000 } /* Generic.Error */
+.output_html .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.output_html .gi { color: #008400 } /* Generic.Inserted */
+.output_html .go { color: #717171 } /* Generic.Output */
+.output_html .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.output_html .gs { font-weight: bold } /* Generic.Strong */
+.output_html .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.output_html .gt { color: #0044DD } /* Generic.Traceback */
+.output_html .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.output_html .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.output_html .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.output_html .kp { color: #008000 } /* Keyword.Pseudo */
+.output_html .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.output_html .kt { color: #B00040 } /* Keyword.Type */
+.output_html .m { color: #666666 } /* Literal.Number */
+.output_html .s { color: #BA2121 } /* Literal.String */
+.output_html .na { color: #687822 } /* Name.Attribute */
+.output_html .nb { color: #008000 } /* Name.Builtin */
+.output_html .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.output_html .no { color: #880000 } /* Name.Constant */
+.output_html .nd { color: #AA22FF } /* Name.Decorator */
+.output_html .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.output_html .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.output_html .nf { color: #0000FF } /* Name.Function */
+.output_html .nl { color: #767600 } /* Name.Label */
+.output_html .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.output_html .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.output_html .nv { color: #19177C } /* Name.Variable */
+.output_html .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.output_html .w { color: #bbbbbb } /* Text.Whitespace */
+.output_html .mb { color: #666666 } /* Literal.Number.Bin */
+.output_html .mf { color: #666666 } /* Literal.Number.Float */
+.output_html .mh { color: #666666 } /* Literal.Number.Hex */
+.output_html .mi { color: #666666 } /* Literal.Number.Integer */
+.output_html .mo { color: #666666 } /* Literal.Number.Oct */
+.output_html .sa { color: #BA2121 } /* Literal.String.Affix */
+.output_html .sb { color: #BA2121 } /* Literal.String.Backtick */
+.output_html .sc { color: #BA2121 } /* Literal.String.Char */
+.output_html .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.output_html .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.output_html .s2 { color: #BA2121 } /* Literal.String.Double */
+.output_html .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.output_html .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.output_html .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.output_html .sx { color: #008000 } /* Literal.String.Other */
+.output_html .sr { color: #A45A77 } /* Literal.String.Regex */
+.output_html .s1 { color: #BA2121 } /* Literal.String.Single */
+.output_html .ss { color: #19177C } /* Literal.String.Symbol */
+.output_html .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.output_html .fm { color: #0000FF } /* Name.Function.Magic */
+.output_html .vc { color: #19177C } /* Name.Variable.Class */
+.output_html .vg { color: #19177C } /* Name.Variable.Global */
+.output_html .vi { color: #19177C } /* Name.Variable.Instance */
+.output_html .vm { color: #19177C } /* Name.Variable.Magic */
+.output_html .il { color: #666666 } /* Literal.Number.Integer.Long */</style><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">ir_module</span>
+<span class="k">class</span> <span class="nc">Module</span><span class="p">:</span>
+    <span class="nd">@tir</span><span class="o">.</span><span class="n">prim_func</span>
+    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">B</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">C</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># function attr dict</span>
+        <span class="n">tir</span><span class="o">.</span><span class="n">func_attr</span><span class="p">({</span><span class="s2">&quot;global_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;main&quot;</span><span class="p">,</span> <span class="s2">&quot;tir.noalias&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+        <span class="c1"># body</span>
+        <span class="c1"># with tir.block(&quot;root&quot;)</span>
+        <span class="k">for</span> <span class="n">i0</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">serial</span><span class="p">(</span><span class="mi">128</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">):</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">spatial</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">i0</span><span class="p">)</span>
+                <span class="n">tir</span><span class="o">.</span><span class="n">reads</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">tir</span><span class="o">.</span><span class="n">writes</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
     
 </pre></div>
-</div>
-</div>
+</div></div>
 </div>
 </section>
-<section id="transforming-a-matrix-multiplication-program">
-<h2>Transforming a matrix multiplication program<a class="headerlink" href="#transforming-a-matrix-multiplication-program" title="永久链接至标题">#</a></h2>
-<p>In the above example, we showed how to transform an vector add. Now let us try to apply that to a slightly more complicated program(matrix multiplication). Let us first try to build the initial code using the tensor expression API.</p>
+<section id="id7">
+<h2>变换矩阵乘法程序<a class="headerlink" href="#id7" title="永久链接至标题">#</a></h2>
+<p>在上面的例子中，展示了如何变换向量加法。现在试着把它应用到稍微复杂一点的程序中（矩阵乘法）。首先尝试使用张量表达式 API 构建初始代码。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span>
 
 <span class="n">M</span> <span class="o">=</span> <span class="mi">1024</span>
 <span class="n">K</span> <span class="o">=</span> <span class="mi">1024</span>
@@ -940,7 +1310,7 @@ class Module:
 <span class="n">func</span> <span class="o">=</span> <span class="n">te</span><span class="o">.</span><span class="n">create_prim_func</span><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">])</span>
 <span class="n">func</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">with_attr</span><span class="p">(</span><span class="s2">&quot;global_symbol&quot;</span><span class="p">,</span> <span class="s2">&quot;main&quot;</span><span class="p">)</span>
 <span class="n">ir_module</span> <span class="o">=</span> <span class="n">IRModule</span><span class="p">({</span><span class="s2">&quot;main&quot;</span><span class="p">:</span> <span class="n">func</span><span class="p">})</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ir_module</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Code</span><span class="p">(</span><span class="n">ir_module</span><span class="o">.</span><span class="n">script</span><span class="p">(),</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">))</span>
 
 
 <span class="n">func</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ir_module</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">)</span>  <span class="c1"># The module for CPU backends.</span>
@@ -959,7 +1329,7 @@ class Module:
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>@tvm.script.ir_module
 class Module:
     @tir.prim_func
-    def main(A_1: tir.Buffer[(1024, 1024), &quot;float32&quot;], B_1: tir.Buffer[(1024, 1024), &quot;float32&quot;], C_1: tir.Buffer[(1024, 1024), &quot;float32&quot;]) -&gt; None:
+    def main(A: tir.Buffer[(1024, 1024), &quot;float32&quot;], B: tir.Buffer[(1024, 1024), &quot;float32&quot;], C: tir.Buffer[(1024, 1024), &quot;float32&quot;]) -&gt; None:
         # function attr dict
         tir.func_attr({&quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True})
         # body
@@ -967,21 +1337,21 @@ class Module:
         for i0, i1, i2 in tir.grid(1024, 1024, 1024):
             with tir.block(&quot;C&quot;):
                 m, n, k = tir.axis.remap(&quot;SSR&quot;, [i0, i1, i2])
-                tir.reads(A_1[m, k], B_1[k, n])
-                tir.writes(C_1[m, n])
+                tir.reads(A[m, k], B[k, n])
+                tir.writes(C[m, n])
                 with tir.init():
-                    C_1[m, n] = tir.float32(0)
-                C_1[m, n] = C_1[m, n] + A_1[m, k] * B_1[k, n]
+                    C[m, n] = tir.float32(0)
+                C[m, n] = C[m, n] + A[m, k] * B[k, n]
     
-Baseline: 3.692298
+Baseline: 2.238068
 </pre></div>
 </div>
 </div>
 </div>
-<p>We can transform the loop access pattern to make it more cache friendly. Let us use the following schedule.</p>
+<p>可以变换循环访问模式，使其对缓存更友好。让我们使用下面的调度。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sch</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">Schedule</span><span class="p">(</span><span class="n">ir_module</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sch</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">Schedule</span><span class="p">(</span><span class="n">ir_module</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">sch</span><span class="p">))</span>
 <span class="n">block_c</span> <span class="o">=</span> <span class="n">sch</span><span class="o">.</span><span class="n">get_block</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
 <span class="c1"># Get loops surronding the block</span>
@@ -991,7 +1361,7 @@ Baseline: 3.692298
 <span class="n">xo</span><span class="p">,</span> <span class="n">xi</span> <span class="o">=</span> <span class="n">sch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">block_size</span><span class="p">])</span>
 
 <span class="n">sch</span><span class="o">.</span><span class="n">reorder</span><span class="p">(</span><span class="n">yo</span><span class="p">,</span> <span class="n">xo</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">xi</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
+<span class="n">Code</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="o">.</span><span class="n">script</span><span class="p">(),</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">)</span>
 
 <span class="n">func</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">)</span>  <span class="c1"># The module for CPU backends.</span>
 
@@ -1005,31 +1375,12 @@ Baseline: 3.692298
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;tvm.tir.schedule.schedule.Schedule&#39;&gt;
-@tvm.script.ir_module
-class Module:
-    @tir.prim_func
-    def main(A_1: tir.Buffer[(1024, 1024), &quot;float32&quot;], B_1: tir.Buffer[(1024, 1024), &quot;float32&quot;], C_1: tir.Buffer[(1024, 1024), &quot;float32&quot;]) -&gt; None:
-        # function attr dict
-        tir.func_attr({&quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True})
-        # body
-        # with tir.block(&quot;root&quot;)
-        for i0_0, i1_0, i2, i0_1, i1_1 in tir.grid(32, 32, 1024, 32, 32):
-            with tir.block(&quot;C&quot;):
-                m = tir.axis.spatial(1024, i0_0 * 32 + i0_1)
-                n = tir.axis.spatial(1024, i1_0 * 32 + i1_1)
-                k = tir.axis.reduce(1024, i2)
-                tir.reads(A_1[m, k], B_1[k, n])
-                tir.writes(C_1[m, n])
-                with tir.init():
-                    C_1[m, n] = tir.float32(0)
-                C_1[m, n] = C_1[m, n] + A_1[m, k] * B_1[k, n]
-    
-after transformation: 0.391784
+after transformation: 0.239306
 </pre></div>
 </div>
 </div>
 </div>
-<p>Try to change the value of bn to see what performance you can get. In pratice, we will leverage an automated system to search over a set of possible transfromations to find an optimal one.</p>
+<p>试着改变 bn 的值，看看你能得到什么性能。在实践中，将利用自动系统来搜索一组可能的变换，以找到最优的变换。</p>
 </section>
 </section>
 
@@ -1052,9 +1403,6 @@ after transformation: 0.391784
     }
     </script>
     <script>kernelName = 'python3'</script>
-<div class="section">
-   
-</div>
 
               </div>
               
@@ -1067,7 +1415,7 @@ after transformation: 0.391784
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">上一页</p>
-            <p class="prev-next-title">MLC</p>
+            <p class="prev-next-title">MLC Book</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="3_TensorIR_Tensor_Program_Abstraction_Case_Study_Action.html" title="下一页 页">

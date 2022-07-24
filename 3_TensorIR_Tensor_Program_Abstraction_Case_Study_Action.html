@@ -21,7 +21,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
@@ -82,7 +82,7 @@ var addUtterances = () => {
 }
 commentsRunWhenDOMLoaded(addUtterances);
 </script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -98,45 +98,14 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="canonical" href="https://daobook.github.io/mlcbook/3_TensorIR_Tensor_Program_Abstraction_Case_Study_Action.html" />
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="prev" title="Tensor Program Abstraction in Action" href="2_tensor_program_abstraction.html" /> 
+    <link rel="next" title="Ep4: End to End Model Execution" href="4_Build_End_to_End_Model.html" />
+    <link rel="prev" title="张量程序抽象" href="2_tensor_program_abstraction.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="zh_CN">
     
 
     <!-- Google Analytics -->
-     
-<link
-  rel="alternate"
-  type="application/atom+xml"
-  href="posts/atom.xml"
-  title="Blog"
-/>
- 
-<style type="text/css">
-  ul.ablog-archive {
-    list-style: none;
-    overflow: auto;
-    margin-left: 0px;
-  }
-  ul.ablog-archive li {
-    float: left;
-    margin-right: 5px;
-    font-size: 80%;
-  }
-  ul.postlist a {
-    font-style: italic;
-  }
-  ul.postlist-style-disc {
-    list-style-type: disc;
-  }
-  ul.postlist-style-none {
-    list-style-type: none;
-  }
-  ul.postlist-style-circle {
-    list-style-type: circle;
-  }
-</style>
-
+    
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <!-- Checkboxes to toggle the left sidebar -->
@@ -178,12 +147,32 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="2_tensor_program_abstraction.html">
-   Tensor Program Abstraction in Action
+   张量程序抽象
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    张量程序抽象的学习案例：TensorIR
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_Build_End_to_End_Model.html">
+   Ep4: End to End Model Execution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_Automatic_Program_Optimization.html">
+   Ep5: Automatic Program Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="assignment/assignment1.html">
+   MLC 作业 1: 端到端模型执行
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="assignment/index.html">
+   索引和表格
   </a>
  </li>
 </ul>
@@ -716,8 +705,8 @@ title="Print to PDF"
             <main id="main-content" role="main">
                 
               <div>
-                 <p><a href="https://colab.research.google.com/github/mlc-ai/notebooks/blob/main/3_TensorIR_Tensor_Program_Abstraction_Case_Study_Action.ipynb" target="_parent"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<section class="tex2jax_ignore mathjax_ignore" id="tensorir">
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="tensorir">
 <h1>张量程序抽象的学习案例：TensorIR<a class="headerlink" href="#tensorir" title="永久链接至标题">#</a></h1>
 <section id="id1">
 <h2>安装包<a class="headerlink" href="#id1" title="永久链接至标题">#</a></h2>
@@ -2256,9 +2245,6 @@ And the fcompute function describes how we want to compute the value of each ele
     }
     </script>
     <script>kernelName = 'python3'</script>
-<div class="section">
-   
-</div>
 
               </div>
               
@@ -2271,8 +2257,15 @@ And the fcompute function describes how we want to compute the value of each ele
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">上一页</p>
-            <p class="prev-next-title">Tensor Program Abstraction in Action</p>
+            <p class="prev-next-title">张量程序抽象</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="4_Build_End_to_End_Model.html" title="下一页 页">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title">Ep4: End to End Model Execution</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             </footer>

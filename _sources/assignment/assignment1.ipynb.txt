@@ -1,0 +1,740 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# MLC 作业 1: 端到端模型执行"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 第一部分: 模型准备\n",
+    "\n",
+    "本作业的目标是让你对机器学习编译过程中的端到端模型的执行和变换更加熟悉。让我们从一个简单的图像分类模型开始。\n",
+    "\n",
+    "我们首先使用如下的命令来安装必要的库。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Looking in links: https://mlc.ai/wheels\n",
+      "Requirement already satisfied: mlc-ai-nightly in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (0.9.dev1664+g1f3985de0)\n",
+      "Requirement already satisfied: psutil in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (5.9.1)\n",
+      "Requirement already satisfied: scipy in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (1.8.1)\n",
+      "Requirement already satisfied: synr==0.6.0 in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (0.6.0)\n",
+      "Requirement already satisfied: tornado in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (6.1)\n",
+      "Requirement already satisfied: decorator in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (5.1.1)\n",
+      "Requirement already satisfied: attrs in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (21.4.0)\n",
+      "Requirement already satisfied: numpy in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (1.23.1)\n",
+      "Requirement already satisfied: cloudpickle in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (2.1.0)\n",
+      "Looking in indexes: https://pypi.org/simple, https://download.pytorch.org/whl/cpu\n",
+      "Collecting torch\n",
+      "  Downloading https://download.pytorch.org/whl/cpu/torch-1.12.0%2Bcpu-cp310-cp310-linux_x86_64.whl (189.0 MB)\n",
+      "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m189.0/189.0 MB\u001b[0m \u001b[31m4.3 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m00:01\u001b[0m00:01\u001b[0m\n",
+      "\u001b[?25hCollecting torchvision\n",
+      "  Downloading https://download.pytorch.org/whl/cpu/torchvision-0.13.0%2Bcpu-cp310-cp310-linux_x86_64.whl (13.5 MB)\n",
+      "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m13.5/13.5 MB\u001b[0m \u001b[31m8.8 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m00:01\u001b[0m00:01\u001b[0mm\n",
+      "\u001b[?25hCollecting torchaudio\n",
+      "  Downloading https://download.pytorch.org/whl/cpu/torchaudio-0.12.0%2Bcpu-cp310-cp310-linux_x86_64.whl (3.5 MB)\n",
+      "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m3.5/3.5 MB\u001b[0m \u001b[31m15.3 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m00:01\u001b[0m00:01\u001b[0m\n",
+      "\u001b[?25hCollecting torchsummary\n",
+      "  Using cached torchsummary-1.5.1-py3-none-any.whl (2.8 kB)\n",
+      "Requirement already satisfied: typing-extensions in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from torch) (4.3.0)\n",
+      "Requirement already satisfied: numpy in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from torchvision) (1.23.1)\n",
+      "Requirement already satisfied: requests in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from torchvision) (2.28.1)\n",
+      "Requirement already satisfied: pillow!=8.3.*,>=5.3.0 in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from torchvision) (9.2.0)\n",
+      "Requirement already satisfied: idna<4,>=2.5 in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from requests->torchvision) (3.3)\n",
+      "Requirement already satisfied: certifi>=2017.4.17 in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from requests->torchvision) (2022.6.15)\n",
+      "Requirement already satisfied: charset-normalizer<3,>=2 in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from requests->torchvision) (2.1.0)\n",
+      "Requirement already satisfied: urllib3<1.27,>=1.21.1 in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from requests->torchvision) (1.26.10)\n",
+      "Installing collected packages: torchsummary, torch, torchvision, torchaudio\n",
+      "Successfully installed torch-1.12.0+cpu torchaudio-0.12.0+cpu torchsummary-1.5.1 torchvision-0.13.0+cpu\n"
+     ]
+    }
+   ],
+   "source": [
+    "!python3 -m pip install mlc-ai-nightly -f https://mlc.ai/wheels\n",
+    "!python3 -m pip install torch torchvision torchaudio torchsummary --extra-index-url https://download.pytorch.org/whl/cpu"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "import pickle as pkl\n",
+    "import torch\n",
+    "import torch.nn.functional as F\n",
+    "import torchvision\n",
+    "import tvm\n",
+    "import tvm.testing\n",
+    "\n",
+    "from matplotlib import pyplot as plt\n",
+    "from torch import nn\n",
+    "from torchvision import transforms\n",
+    "from tvm import topi, relax, te\n",
+    "from tvm.script import tir as T\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "以下是用PyTorch定义的模型。该模型接受一批图像为输入，然后对它们依次作用卷积层，激活层，池化层和全连接层，得到分类结果。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "batch_size = 4\n",
+    "input_shape = (batch_size, 1, 28, 28)  # NCHW layout\n",
+    "\n",
+    "\n",
+    "def pytorch_model():\n",
+    "    list = []\n",
+    "    list.append(nn.Conv2d(in_channels=1, out_channels=32, kernel_size=(3, 3), bias=True))\n",
+    "    list.append(nn.ReLU())\n",
+    "    list.append(nn.MaxPool2d(kernel_size=(2, 2)))\n",
+    "    list.append(nn.Flatten())\n",
+    "    list.append(nn.Linear(in_features=5408, out_features=100, bias=True))\n",
+    "    list.append(nn.ReLU())\n",
+    "    list.append(nn.Linear(in_features=100, out_features=10, bias=True))\n",
+    "    list.append(nn.Softmax(dim=1))\n",
+    "\n",
+    "    model = nn.Sequential(*list).cpu()\n",
+    "    name_map = {\n",
+    "        \"0.weight\": \"conv2d_weight\",\n",
+    "        \"0.bias\": \"conv2d_bias\",\n",
+    "        \"4.weight\": \"linear0_weight\",\n",
+    "        \"4.bias\": \"linear0_bias\",\n",
+    "        \"6.weight\": \"linear1_weight\",\n",
+    "        \"6.bias\": \"linear1_bias\",\n",
+    "    }\n",
+    "    for name, param in model.named_parameters():\n",
+    "        param.data = torch.from_numpy(weight_map[name_map[name]]).cpu()\n",
+    "    return model\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "我们提供了一个在Fashion MNIST数据集上的预训练权重图。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "--2022-07-24 23:46:45--  https://github.com/mlc-ai/web-data/raw/main/models/fasionmnist_mlp_assignment_params.pkl\n",
+      "Resolving github.com (github.com)... 20.205.243.166\n",
+      "Connecting to github.com (github.com)|20.205.243.166|:443... connected.\n",
+      "HTTP request sent, awaiting response... 302 Found\n",
+      "Location: https://raw.githubusercontent.com/mlc-ai/web-data/main/models/fasionmnist_mlp_assignment_params.pkl [following]\n",
+      "--2022-07-24 23:46:46--  https://raw.githubusercontent.com/mlc-ai/web-data/main/models/fasionmnist_mlp_assignment_params.pkl\n",
+      "Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.109.133, 185.199.110.133, ...\n",
+      "Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.\n",
+      "HTTP request sent, awaiting response... 200 OK\n",
+      "Length: 2169350 (2.1M) [application/octet-stream]\n",
+      "Saving to: ‘fasionmnist_mlp_assignment_params.pkl’\n",
+      "\n",
+      "fasionmnist_mlp_ass 100%[===================>]   2.07M  5.21MB/s    in 0.4s    \n",
+      "\n",
+      "2022-07-24 23:46:48 (5.21 MB/s) - ‘fasionmnist_mlp_assignment_params.pkl’ saved [2169350/2169350]\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Hide outputs\n",
+    "!wget -nc https://github.com/mlc-ai/web-data/raw/main/models/fasionmnist_mlp_assignment_params.pkl"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "我们可以看到它的准确率约为84%。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz\n",
+      "Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz to ./data/FashionMNIST/raw/train-images-idx3-ubyte.gz\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "100.0%\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Extracting ./data/FashionMNIST/raw/train-images-idx3-ubyte.gz to ./data/FashionMNIST/raw\n",
+      "\n",
+      "Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz\n",
+      "Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz to ./data/FashionMNIST/raw/train-labels-idx1-ubyte.gz\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "100.0%\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Extracting ./data/FashionMNIST/raw/train-labels-idx1-ubyte.gz to ./data/FashionMNIST/raw\n",
+      "\n",
+      "Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz\n",
+      "Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz to ./data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "100.0%\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Extracting ./data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz to ./data/FashionMNIST/raw\n",
+      "\n",
+      "Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz\n",
+      "Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz to ./data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "100.0%\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Extracting ./data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz to ./data/FashionMNIST/raw\n",
+      "\n"
+     ]
+    },
+    {
+     "data": {
+      "image/png": "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",
+      "text/plain": [
+       "<Figure size 432x288 with 1 Axes>"
+      ]
+     },
+     "metadata": {
+      "needs_background": "light"
+     },
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "predict: Ankle boot, label: Ankle boot\n",
+      "\n",
+      "Test set: Average loss: -0.8369, Accuracy: 8388/10000 (84%)\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Load the weight map from file.\n",
+    "# The prediction accuracy of the weight map on test data is around 83.3%.\n",
+    "weight_map = pkl.load(open(\"fasionmnist_mlp_assignment_params.pkl\", \"rb\"))\n",
+    "class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',\n",
+    "               'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']\n",
+    "\n",
+    "\n",
+    "def test(model, test_loader):\n",
+    "    model.eval()\n",
+    "    test_loss = 0\n",
+    "    correct = 0\n",
+    "    with torch.no_grad():\n",
+    "        print_img = True\n",
+    "        for data, label in test_loader:\n",
+    "            data, label = data.cpu(), label.cpu()\n",
+    "            output = model(data)\n",
+    "            # sum up batch loss\n",
+    "            test_loss += F.nll_loss(output, label, reduction=\"sum\").item()\n",
+    "            # get the index of the max log-probability\n",
+    "            pred = output.argmax(dim=1, keepdim=True)\n",
+    "            if print_img:\n",
+    "                imshow(data[0])\n",
+    "                print(\"predict: {}, label: {}\".format(class_names[pred[0][0]], class_names[label[0]]))\n",
+    "                print_img = False\n",
+    "            correct += pred.eq(label.view_as(pred)).sum().item()\n",
+    "\n",
+    "    test_loss /= len(test_loader.dataset)\n",
+    "\n",
+    "    print(\"\\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\\n\".format(\n",
+    "        test_loss, correct, len(test_loader.dataset),\n",
+    "        100. * correct / len(test_loader.dataset)))\n",
+    "\n",
+    "\n",
+    "def imshow(img):\n",
+    "    img = img / 2 + 0.5\n",
+    "    npimg = img.numpy()\n",
+    "    plt.imshow(np.transpose(npimg, (1, 2, 0)))\n",
+    "    plt.show()\n",
+    "\n",
+    "\n",
+    "test_data = torchvision.datasets.FashionMNIST(\n",
+    "    \"./data\",\n",
+    "    download=True,\n",
+    "    train=False,\n",
+    "    transform=transforms.Compose([transforms.ToTensor()])\n",
+    ")\n",
+    "test_loader = torch.utils.data.DataLoader(\n",
+    "    test_data, batch_size=batch_size, shuffle=False)\n",
+    "test(pytorch_model(), test_loader)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 第二部分: 从PyTorch迁移模型\n",
+    "为了展示机器学习编译对端到端模型的抽象，我们需要将模型从PyTorch迁移并转换为TVMScript实现。然后，手工迁移很难。正如你在TensorIR练习中所体验的那样，为模型中的每一层写一个元张量函数需要大量的人力来完成。另外，手工写这些函数是容易犯错的。你可以想象，当你写了几百行，但其中有零星几个bug，那么找到bug的过程将会是痛苦的。\n",
+    "\n",
+    "幸运的是，在TVM中有一个简单的多的方法能够迁移模型。TVM提供了一个类`relax.BlockBuilder`，它能够从空白的IRModule开始一步步的构建端到端模型。（回忆我们在第四节课中介绍的Relax的Dataflow Block，这里的\"block\"就是代表了Relax函数中的Dataflow Block）\n",
+    "\n",
+    "具体而言，在 `BlockBuilder`中我们有一个 `emit_te`的API，它可以将一个张量表达式（第三节课中介绍过）的算子描述转变成一个对应TensorIR函数的`call_tir`操作（`call_tir`在第四节课中介绍过）。与手工写TensorIR函数相比，写张量表达式描述可以用几行代码来完成，这减少了需要的工作量和犯错的概率。\n",
+    "\n",
+    "`emit_te`的函数签名是`emit_te(func, *input)`，其中`func`是一个返回张量表达式的函数，而`*input`是`func`的输入。\n",
+    "\n",
+    "让我们从一个例子开始详细介绍。在下方的代码块中，`relu`是一个返回ReLU算子的张量表达式描述的函数。为了构建一个执行单个ReLU算子的Relax函数，在`emit_te_example`中我们首先定义了一个`BlockBuilder`实例`bb`。我们也定义了一个2维128x128大小的张量变量`x`，它将作为ReLU操作的输入张量（同时也是Relax函数的输入）。\n",
+    "\n",
+    "在这之后，我们用`with bb.function(name, [*input])` API构建一个以`x`为输入的Relax函数 `main`。然后我们构建一个dataflow block。在这个dataflow block里，我们首先用`emit_te`生成一个调用ReLU算子的`call_tir`。这里 `emit_te`在IRModule中生成了一个名字为`relu`的TensorIR函数，然后在dataflow block中生成`call_tir(relu, (x,), (128, 128), dtype=\"float32\")`操作。`call_tir`之后是函数返回。\n",
+    "\n",
+    "在这一构造之后，BlockBuilder实例`bb`包含构建完的IRModule，它可以通过`bb.get()`得到。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def relu(A):\n",
+    "    B = te.compute(shape=(128, 128), fcompute=lambda i, j: te.max(A[i, j], 0), name=\"B\")\n",
+    "    return B\n",
+    "\n",
+    "\n",
+    "def emit_te_example():\n",
+    "    bb = relax.BlockBuilder()\n",
+    "    x = relax.Var(\"x\", (128, 128), relax.DynTensorType(2, \"float32\"))\n",
+    "    with bb.function(\"main\", [x]):\n",
+    "        with bb.dataflow():\n",
+    "            lv0 = bb.emit_te(relu, x)\n",
+    "            gv = bb.emit_output(lv0)\n",
+    "        bb.emit_func_output(gv)\n",
+    "    return bb.get()\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "函数`emit_te_example`返回构造得到的IRModule。为了看的更清楚，我们可以输出这一IRModule。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import IPython\n",
+    "\n",
+    "mod = emit_te_example()\n",
+    "IPython.display.Code(mod.script(), language=\"python\")\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "正如你看到的，通过BlockBuilder生成的IRModule确实包含了ReLU的TensorIR实现和一个含有调用ReLU实现的`call_tir`的Relax函数\n",
+    "\n",
+    "现在轮到你来用BlockBuilder和`emit_te`来创建一个和之前定义的PyTorch模型等价的IRModule。你可以自己为所有的算子写张量表达式描述。或者，TVM提供了TOPI（TVM Operator Inventory）库，它为不同的算子提供了张量表达式描述。如果你愿意阅读[文档](https://tvm.apache.org/docs/reference/api/python/topi.html)来弄懂它的用法，这也是被鼓励的。我们提供了测试函数来检查你的IRModule的正确性。\n",
+    "\n",
+    "注意到每个Conv2d层和linear层都包含了一个偏置加法，这应该在你构建的IRModule中被体现。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def create_model_via_emit_te():\n",
+    "    bb = relax.BlockBuilder()\n",
+    "    x = relax.Var(\"x\", input_shape, relax.DynTensorType(batch_size, \"float32\"))\n",
+    "\n",
+    "    conv2d_weight = relax.const(weight_map[\"conv2d_weight\"], \"float32\")\n",
+    "    conv2d_bias = relax.const(weight_map[\"conv2d_bias\"].reshape(1, 32, 1, 1), \"float32\")\n",
+    "    linear0_weight = relax.const(weight_map[\"linear0_weight\"], \"float32\")\n",
+    "    linear0_bias = relax.const(weight_map[\"linear0_bias\"].reshape(1, 100), \"float32\")\n",
+    "    linear1_weight = relax.const(weight_map[\"linear1_weight\"], \"float32\")\n",
+    "    linear1_bias = relax.const(weight_map[\"linear1_bias\"].reshape(1, 10), \"float32\")\n",
+    "\n",
+    "    with bb.function(\"main\", [x]):\n",
+    "        with bb.dataflow():\n",
+    "           # TODO\n",
+    "           ...\n",
+    "        bb.emit_func_output(gv)\n",
+    "\n",
+    "    return bb.get()\n",
+    "\n",
+    "\n",
+    "def build_mod(mod):\n",
+    "    exec = relax.vm.build(mod, \"llvm\")\n",
+    "    dev = tvm.cpu()\n",
+    "    vm = relax.VirtualMachine(exec, dev)\n",
+    "    return vm\n",
+    "\n",
+    "\n",
+    "def check_equivalence(mod, torch_model, test_loader):\n",
+    "    torch_model.eval()\n",
+    "    with torch.no_grad():\n",
+    "        rt_mod = build_mod(mod)\n",
+    "        for data, label in test_loader:\n",
+    "            data, label = data.cpu(), label.cpu()\n",
+    "            output_from_pytorch = torch_model(data).numpy()\n",
+    "            output_from_relax = rt_mod[\"main\"](tvm.nd.array(data, tvm.cpu())).numpy()\n",
+    "            tvm.testing.assert_allclose(output_from_pytorch, output_from_relax, rtol=1e-4)\n",
+    "\n",
+    "\n",
+    "test_data = torchvision.datasets.FashionMNIST(\n",
+    "    \"./data\",\n",
+    "    download=True,\n",
+    "    train=False,\n",
+    "    transform=transforms.Compose([transforms.ToTensor()])\n",
+    ")\n",
+    "test_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size, shuffle=False)\n",
+    "\n",
+    "mod = create_model_via_emit_te()\n",
+    "torch_model = pytorch_model()\n",
+    "\n",
+    "check_equivalence(mod, torch_model, test_loader)\n",
+    "IPython.display.Code(mod.script(), language=\"python\")\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 第三部分: 使用库\n",
+    "\n",
+    "正如我们在第四节课中谈到的，我们可以将torch函数整合进IRModule。步骤包括注册一个外部运行时函数，和在IRModule中用`call_tir`调用。\n",
+    "\n",
+    "这里是一个用torch matmul和torch add拉力实现一个linear层的例子。你也可以在第四节课的笔记中找到这个例子。\n",
+    "\n",
+    "\n",
+    "```python\n",
+    "@tvm.register_func(\"env.linear\", override=True)\n",
+    "def torch_linear(x: tvm.nd.NDArray,\n",
+    "                 w: tvm.nd.NDArray,\n",
+    "                 b: tvm.nd.NDArray,\n",
+    "                 out: tvm.nd.NDArray):\n",
+    "    x_torch = torch.from_dlpack(x)\n",
+    "    w_torch = torch.from_dlpack(w)\n",
+    "    b_torch = torch.from_dlpack(b)\n",
+    "    out_torch = torch.from_dlpack(out)\n",
+    "    torch.mm(x_torch, w_torch.T, out=out_torch)\n",
+    "    torch.add(out_torch, b_torch, out=out_torch)\n",
+    "\n",
+    "\n",
+    "@tvm.script.ir_module\n",
+    "class MyModuleWithExternCall:\n",
+    "    @R.function\n",
+    "    def main(x: Tensor((1, 784), \"float32\"),\n",
+    "             w0: Tensor((128, 784), \"float32\"),\n",
+    "             b0: Tensor((128,), \"float32\")):\n",
+    "        # block 0\n",
+    "        with R.dataflow():\n",
+    "            lv0 = R.call_tir(\"env.linear\", (x, w0, b0), (1, 128), dtype=\"float32\")\n",
+    "            ...\n",
+    "        return ...\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "请为你在第二部分中创建的IRModule中的卷积层注册外部函数。你需要使用NumPy或者PyTorch作为你的函数实现。\n",
+    "\n",
+    "你可能需要使用`BlockBuilder.emit`在正在构建的Relax函数的结尾直接添加一个`call_tir`操作。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "\n",
+    "def create_model_with_torch_func():\n",
+    "    bb = relax.BlockBuilder()\n",
+    "\n",
+    "    x = relax.Var(\"x\", input_shape, relax.DynTensorType(4, \"float32\"))\n",
+    "\n",
+    "    conv2d_weight = relax.const(weight_map[\"conv2d_weight\"], \"float32\")\n",
+    "    conv2d_bias = relax.const(weight_map[\"conv2d_bias\"].reshape(1, 32, 1, 1), \"float32\")\n",
+    "    linear0_weight = relax.const(weight_map[\"linear0_weight\"], \"float32\")\n",
+    "    linear0_bias = relax.const(weight_map[\"linear0_bias\"].reshape(1, 100), \"float32\")\n",
+    "    linear1_weight = relax.const(weight_map[\"linear1_weight\"], \"float32\")\n",
+    "    linear1_bias = relax.const(weight_map[\"linear1_bias\"].reshape(1, 10), \"float32\")\n",
+    "\n",
+    "    with bb.function(\"main\", [x]):\n",
+    "        with bb.dataflow():\n",
+    "            # TODO:\n",
+    "            ...\n",
+    "        bb.emit_func_output(gv)\n",
+    "\n",
+    "    return bb.get()\n",
+    "\n",
+    "\n",
+    "test_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size, shuffle=False)\n",
+    "mod = create_model_with_torch_func()\n",
+    "check_equivalence(mod, torch_model, test_loader)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 第四部分: 端到端模型中的程序变换\n",
+    "\n",
+    "在TensorIR练习中, 我们学会了如何变换单个TensorIR函数。在端到端模型中变换是类似的。\n",
+    "\n",
+    "和批量矩阵乘法相比，让我们关注一个更加有挑战性的算子：conv2d（二维卷积）。\n",
+    "\n",
+    "首先，让我们介绍一些新的原语：\n",
+    " - `compute_inline`：它将一个block内联到另一个block中，以减少内存使用大小和内存访问次数\n",
+    " - `fuse`：和`split`相对。融合多个轴。这里`fuse`与`parallel` / `vectorize` / `unroll`一起使用，以增加并行度。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "@T.prim_func\n",
+    "def before_inline(a: T.handle, c: T.handle) -> None:\n",
+    "    A = T.match_buffer(a, (128, 128))\n",
+    "    B = T.alloc_buffer((128, 128))\n",
+    "    C = T.match_buffer(c, (128, 128))\n",
+    "    for i, j in T.grid(128, 128):\n",
+    "        with T.block(\"B\"):\n",
+    "            vi, vj = T.axis.remap(\"SS\", [i, j])\n",
+    "            B[vi, vj] = A[vi, vj] * 2.0\n",
+    "    for i, j in T.grid(128, 128):\n",
+    "        with T.block(\"C\"):\n",
+    "            vi, vj = T.axis.remap(\"SS\", [i, j])\n",
+    "            C[vi, vj] = B[vi, vj] + 1.0\n",
+    "\n",
+    "\n",
+    "sch = tvm.tir.Schedule(before_inline)\n",
+    "sch.compute_inline(sch.get_block(\"B\"))\n",
+    "IPython.display.Code(sch.mod[\"main\"].script(), language=\"python\")\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "@T.prim_func\n",
+    "def before_fuse(a: T.handle, b: T.handle) -> None:\n",
+    "    A = T.match_buffer(a, (128, 128))\n",
+    "    B = T.match_buffer(b, (128, 128))\n",
+    "    for i, j in T.grid(128, 128):\n",
+    "        with T.block(\"B\"):\n",
+    "            vi, vj = T.axis.remap(\"SS\", [i, j])\n",
+    "            B[vi, vj] = A[vi, vj] * 2.0\n",
+    "\n",
+    "\n",
+    "sch = tvm.tir.Schedule(before_fuse)\n",
+    "i, j = sch.get_loops(sch.get_block(\"B\"))\n",
+    "sch.fuse(i, j)\n",
+    "IPython.display.Code(sch.mod[\"main\"].script(), language=\"python\")\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "现在我们首先为第二部分中得到的IRModule创建一个schedule，然后对其中的conv2d TensorIR函数变换。和TensorIR练习类似，我们提供了一个目标函数。但请注意，目标函数不是标准答案，原因如下：\n",
+    " - 它可能不能在所有硬件中都取得最佳性能\n",
+    " - 原始的conv2d TensorIR实现可能不同，这决定与你在第二部分中使用的张量表达式描述：\n",
+    "   - 如果你将conv2d的计算和偏置加法的计算放在了一个张量表达式中，那么在变换完成的TensorIR函数的末尾应该有一个计算偏置加法的block\n",
+    "   - 如果你将上述两个计算分开在不同的张量表达式，或者你使用了TOPI提供的conv2d，那么变换完成的TensorIR函数末尾不应该有计算偏置加法的block。下面给出的目标函数是用TOPI conv2d获得的TensorIR函数做变换后生成的。\n",
+    "\n",
+    "```python\n",
+    "@T.prim_func\n",
+    "def target_func(rxplaceholder: T.Buffer[(4, 1, 28, 28), \"float32\"], rxplaceholder_1: T.Buffer[(32, 1, 3, 3), \"float32\"], conv2d_nchw: T.Buffer[(4, 32, 26, 26), \"float32\"]) -> None:\n",
+    "    T.func_attr({\"global_symbol\": \"conv2d\", \"tir.noalias\": True})\n",
+    "    # body\n",
+    "    # with T.block(\"root\")\n",
+    "    for i0_0_i1_0_i2_0_i3_0_fused in T.parallel(2704):\n",
+    "        for i0_1_i1_1_fused_init in T.unroll(8):\n",
+    "            for i2_1_i3_1_fused_init in T.vectorized(4):\n",
+    "                with T.block(\"conv2d_nchw_init\"):\n",
+    "                    nn = T.axis.spatial(\n",
+    "                        4, i0_0_i1_0_i2_0_i3_0_fused // 1352 * 2 + i0_1_i1_1_fused_init // 4)\n",
+    "                    ff = T.axis.spatial(\n",
+    "                        32, i0_0_i1_0_i2_0_i3_0_fused % 1352 // 169 * 4 + i0_1_i1_1_fused_init % 4)\n",
+    "                    yy = T.axis.spatial(\n",
+    "                        26, i0_0_i1_0_i2_0_i3_0_fused % 169 // 13 * 2 + i2_1_i3_1_fused_init // 2)\n",
+    "                    xx = T.axis.spatial(\n",
+    "                        26, i0_0_i1_0_i2_0_i3_0_fused % 13 * 2 + i2_1_i3_1_fused_init % 2)\n",
+    "                    T.reads()\n",
+    "                    T.writes(conv2d_nchw[nn, ff, yy, xx])\n",
+    "                    conv2d_nchw[nn, ff, yy, xx] = T.float32(0)\n",
+    "        for i4, i5, i6 in T.grid(1, 3, 3):\n",
+    "            for i0_1_i1_1_fused in T.unroll(8):\n",
+    "                for i2_1_i3_1_fused in T.vectorized(4):\n",
+    "                    with T.block(\"conv2d_nchw_update\"):\n",
+    "                        nn = T.axis.spatial(\n",
+    "                            4, i0_0_i1_0_i2_0_i3_0_fused // 1352 * 2 + i0_1_i1_1_fused // 4)\n",
+    "                        ff = T.axis.spatial(\n",
+    "                            32, i0_0_i1_0_i2_0_i3_0_fused % 1352 // 169 * 4 + i0_1_i1_1_fused % 4)\n",
+    "                        yy = T.axis.spatial(\n",
+    "                            26, i0_0_i1_0_i2_0_i3_0_fused % 169 // 13 * 2 + i2_1_i3_1_fused // 2)\n",
+    "                        xx = T.axis.spatial(\n",
+    "                            26, i0_0_i1_0_i2_0_i3_0_fused % 13 * 2 + i2_1_i3_1_fused % 2)\n",
+    "                        rc, ry, rx = T.axis.remap(\"RRR\", [i4, i5, i6])\n",
+    "                        T.reads(conv2d_nchw[nn, ff, yy, xx], rxplaceholder[nn,\n",
+    "                                rc, yy + ry, xx + rx], rxplaceholder_1[ff, rc, ry, rx])\n",
+    "                        T.writes(conv2d_nchw[nn, ff, yy, xx])\n",
+    "                        conv2d_nchw[nn, ff, yy, xx] = conv2d_nchw[nn, ff, yy, xx] + \\\n",
+    "                            rxplaceholder[nn, rc, yy + ry, xx +\n",
+    "                                          rx] * rxplaceholder_1[ff, rc, ry, rx]\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "和TensorIR练习中不同的是, 这里schedule是为一个IRModule创建的，而不是TensorIR函数. 因此，当使用`sch.get_block`时，需要提供TensorIR函数名字，如下方所示。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mod = create_model_via_emit_te()\n",
+    "sch = tvm.tir.Schedule(mod)\n",
+    "\n",
+    "# Step 1. Get blocks\n",
+    "# block = sch.get_block(name=\"your_block_name\", func_name=\"your_function_name\")\n",
+    "\n",
+    "# Step 2. Inline the padding block (if exists)\n",
+    "\n",
+    "# Step 3. Get loops\n",
+    "\n",
+    "# Step 4. Organize the loops\n",
+    "\n",
+    "# Step 5. decompose reduction\n",
+    "\n",
+    "# Step 6. fuse + vectorize / fuse + parallel / fuse + unroll\n",
+    "\n",
+    "IPython.display.Code(sch.mod.script(), language=\"python\")\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "同样，我们可以测试变换后IRModule的正确性。"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "test_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size, shuffle=False)\n",
+    "check_equivalence(sch.mod, torch_model, test_loader)\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3.10.4 ('mlc': conda)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.4"
+  },
+  "orig_nbformat": 4,
+  "vscode": {
+   "interpreter": {
+    "hash": "aaffa6035209f65dc356111783931130a4c4995d4af64fce84e8309d82e28b87"
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
