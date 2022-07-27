@@ -1,4 +1,4 @@
-# 作业
+# 学习
 
 ```{toctree}
 :maxdepth: 2

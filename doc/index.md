@@ -2,11 +2,10 @@
 ```
 
 ```{toctree}
-:maxdepth: 2
-:glob:
+:maxdepth: 3
 :hidden:
 
-*
+study/index
 assignment/index
 ```
 
