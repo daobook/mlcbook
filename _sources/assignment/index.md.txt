@@ -1,5 +1,4 @@
-```{include} ../README.md
-```
+# 作业
 
 ```{toctree}
 :maxdepth: 2
@@ -8,9 +7,3 @@
 
 *
 ```
-
-# 索引和表格
-
-* {ref}`genindex`
-* {ref}`modindex`
-* {ref}`search`

@@ -96,7 +96,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="canonical" href="https://daobook.github.io/mlcbook/assignment/assignment1.html" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="prev" title="索引和表格" href="index.html" />
+    <link rel="prev" title="2.5. TensorIR 练习" href="assignment0.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="zh_CN">
     
@@ -142,35 +142,59 @@ const thebe_selector_output = ".output, .cell_output"
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../2_tensor_program_abstraction.html">
-   张量程序抽象
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../study/index.html">
+   学习
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../study/2_tensor_program_abstraction.html">
+     张量程序抽象
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../study/3_TensorIR_Tensor_Program_Abstraction_Case_Study_Action.html">
+     张量程序抽象的学习案例：TensorIR
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../study/4_Build_End_to_End_Model.html">
+     端到端模型执行
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../study/5_Automatic_Program_Optimization.html">
+     Ep5: Automatic Program Optimization
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../3_TensorIR_Tensor_Program_Abstraction_Case_Study_Action.html">
-   张量程序抽象的学习案例：TensorIR
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../4_Build_End_to_End_Model.html">
-   Ep4: End to End Model Execution
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../5_Automatic_Program_Optimization.html">
-   Ep5: Automatic Program Optimization
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   MLC 作业 1: 端到端模型执行
-  </a>
- </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="index.html">
-   索引和表格
+   作业
   </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="assignment0.html">
+     2.5. TensorIR 练习
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     MLC 作业 1: 端到端模型执行
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -507,8 +531,8 @@ title="Print to PDF"
 <h1>MLC 作业 1: 端到端模型执行<a class="headerlink" href="#mlc-1" title="永久链接至标题">#</a></h1>
 <section id="id1">
 <h2>第一部分: 模型准备<a class="headerlink" href="#id1" title="永久链接至标题">#</a></h2>
-<p>本作业的目标是让你对机器学习编译过程中的端到端模型的执行和变换更加熟悉。让我们从一个简单的图像分类模型开始。</p>
-<p>我们首先使用如下的命令来安装必要的库。</p>
+<p>本作业的目标是让你对机器学习编译过程中的端到端模型的执行和变换更加熟悉。从简单的图像分类模型开始。</p>
+<p>首先使用如下的命令来安装必要的库。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python3 -m pip install mlc-ai-nightly -f https://mlc.ai/wheels
@@ -572,25 +596,24 @@ Successfully installed torch-1.12.0+cpu torchaudio-0.12.0+cpu torchsummary-1.5.1
 </div>
 </div>
 </div>
-<p>以下是用PyTorch定义的模型。该模型接受一批图像为输入，然后对它们依次作用卷积层，激活层，池化层和全连接层，得到分类结果。</p>
+<p>以下是用 PyTorch 定义的模型。该模型接受一批图像为输入，然后对它们依次作用卷积层，激活层，池化层和全连接层，得到分类结果。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>  <span class="c1"># NCHW layout</span>
+<span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>  <span class="c1"># NCHW 布局</span>
 
 
-<span class="k">def</span> <span class="nf">pytorch_model</span><span class="p">():</span>
-    <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-    <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">())</span>
-    <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
-    <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">())</span>
-    <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">5408</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-    <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">())</span>
-    <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-    <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-
-    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="nb">list</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">pytorch_model</span><span class="p">(</span><span class="n">weight_map</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">5408</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
     <span class="n">name_map</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;0.weight&quot;</span><span class="p">:</span> <span class="s2">&quot;conv2d_weight&quot;</span><span class="p">,</span>
         <span class="s2">&quot;0.bias&quot;</span><span class="p">:</span> <span class="s2">&quot;conv2d_bias&quot;</span><span class="p">,</span>
@@ -606,7 +629,7 @@ Successfully installed torch-1.12.0+cpu torchaudio-0.12.0+cpu torchsummary-1.5.1
 </div>
 </div>
 </div>
-<p>我们提供了一个在Fashion MNIST数据集上的预训练权重图。</p>
+<p>在 Fashion MNIST 数据集上的预训练权重图。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hide outputs</span>
@@ -615,30 +638,16 @@ Successfully installed torch-1.12.0+cpu torchaudio-0.12.0+cpu torchsummary-1.5.1
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2022-07-24 23:46:45--  https://github.com/mlc-ai/web-data/raw/main/models/fasionmnist_mlp_assignment_params.pkl
-Resolving github.com (github.com)... 20.205.243.166
-Connecting to github.com (github.com)|20.205.243.166|:443... connected.
-HTTP request sent, awaiting response... 302 Found
-Location: https://raw.githubusercontent.com/mlc-ai/web-data/main/models/fasionmnist_mlp_assignment_params.pkl [following]
---2022-07-24 23:46:46--  https://raw.githubusercontent.com/mlc-ai/web-data/main/models/fasionmnist_mlp_assignment_params.pkl
-Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.109.133, 185.199.110.133, ...
-Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 2169350 (2.1M) [application/octet-stream]
-Saving to: ‘fasionmnist_mlp_assignment_params.pkl’
-
-fasionmnist_mlp_ass 100%[===================&gt;]   2.07M  5.21MB/s    in 0.4s    
-
-2022-07-24 23:46:48 (5.21 MB/s) - ‘fasionmnist_mlp_assignment_params.pkl’ saved [2169350/2169350]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File ‘fasionmnist_mlp_assignment_params.pkl’ already there; not retrieving.
 </pre></div>
 </div>
 </div>
 </div>
-<p>我们可以看到它的准确率约为84%。</p>
+<p>可以看到它的准确率约为84%。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the weight map from file.</span>
-<span class="c1"># The prediction accuracy of the weight map on test data is around 83.3%.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 从文件中加载权重图。</span>
+<span class="c1"># 权值图对试验数据的预测精度约为 83.3%。</span>
 <span class="n">weight_map</span> <span class="o">=</span> <span class="n">pkl</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;fasionmnist_mlp_assignment_params.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">))</span>
 <span class="n">class_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;T-shirt/top&#39;</span><span class="p">,</span> <span class="s1">&#39;Trouser&#39;</span><span class="p">,</span> <span class="s1">&#39;Pullover&#39;</span><span class="p">,</span> <span class="s1">&#39;Dress&#39;</span><span class="p">,</span> <span class="s1">&#39;Coat&#39;</span><span class="p">,</span>
                <span class="s1">&#39;Sandal&#39;</span><span class="p">,</span> <span class="s1">&#39;Shirt&#39;</span><span class="p">,</span> <span class="s1">&#39;Sneaker&#39;</span><span class="p">,</span> <span class="s1">&#39;Bag&#39;</span><span class="p">,</span> <span class="s1">&#39;Ankle boot&#39;</span><span class="p">]</span>
@@ -685,51 +694,29 @@ fasionmnist_mlp_ass 100%[===================&gt;]   2.07M  5.21MB/s    in 0.4s
 <span class="p">)</span>
 <span class="n">test_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span>
     <span class="n">test_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">test</span><span class="p">(</span><span class="n">pytorch_model</span><span class="p">(),</span> <span class="n">test_loader</span><span class="p">)</span>
+<span class="n">test</span><span class="p">(</span><span class="n">pytorch_model</span><span class="p">(</span><span class="n">weight_map</span><span class="p">),</span> <span class="n">test_loader</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz to ./data/FashionMNIST/raw/train-images-idx3-ubyte.gz
-Extracting ./data/FashionMNIST/raw/train-images-idx3-ubyte.gz to ./data/FashionMNIST/raw
-
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz to ./data/FashionMNIST/raw/train-labels-idx1-ubyte.gz
-Extracting ./data/FashionMNIST/raw/train-labels-idx1-ubyte.gz to ./data/FashionMNIST/raw
-
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz to ./data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz
-Extracting ./data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz to ./data/FashionMNIST/raw
-
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
-Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz to ./data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz
-Extracting ./data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz to ./data/FashionMNIST/raw
-
-predict: Ankle boot, label: Ankle boot
+<img alt="../_images/4363cf464ac87db604eb77d05e1d3e371f9618f203ed6a32572e9cd8e41ca558.png" src="../_images/4363cf464ac87db604eb77d05e1d3e371f9618f203ed6a32572e9cd8e41ca558.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>predict: Ankle boot, label: Ankle boot
 
 Test set: Average loss: -0.8369, Accuracy: 8388/10000 (84%)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100.0%
-100.0%
-100.0%
-100.0%
-</pre></div>
-</div>
-<img alt="../_images/4363cf464ac87db604eb77d05e1d3e371f9618f203ed6a32572e9cd8e41ca558.png" src="../_images/4363cf464ac87db604eb77d05e1d3e371f9618f203ed6a32572e9cd8e41ca558.png" />
 </div>
 </div>
 </section>
 <section id="pytorch">
 <h2>第二部分: 从PyTorch迁移模型<a class="headerlink" href="#pytorch" title="永久链接至标题">#</a></h2>
-<p>为了展示机器学习编译对端到端模型的抽象，我们需要将模型从PyTorch迁移并转换为TVMScript实现。然后，手工迁移很难。正如你在TensorIR练习中所体验的那样，为模型中的每一层写一个元张量函数需要大量的人力来完成。另外，手工写这些函数是容易犯错的。你可以想象，当你写了几百行，但其中有零星几个bug，那么找到bug的过程将会是痛苦的。</p>
-<p>幸运的是，在TVM中有一个简单的多的方法能够迁移模型。TVM提供了一个类<code class="docutils literal notranslate"><span class="pre">relax.BlockBuilder</span></code>，它能够从空白的IRModule开始一步步的构建端到端模型。（回忆我们在第四节课中介绍的Relax的Dataflow Block，这里的”block”就是代表了Relax函数中的Dataflow Block）</p>
-<p>具体而言，在 <code class="docutils literal notranslate"><span class="pre">BlockBuilder</span></code>中我们有一个 <code class="docutils literal notranslate"><span class="pre">emit_te</span></code>的API，它可以将一个张量表达式（第三节课中介绍过）的算子描述转变成一个对应TensorIR函数的<code class="docutils literal notranslate"><span class="pre">call_tir</span></code>操作（<code class="docutils literal notranslate"><span class="pre">call_tir</span></code>在第四节课中介绍过）。与手工写TensorIR函数相比，写张量表达式描述可以用几行代码来完成，这减少了需要的工作量和犯错的概率。</p>
-<p><code class="docutils literal notranslate"><span class="pre">emit_te</span></code>的函数签名是<code class="docutils literal notranslate"><span class="pre">emit_te(func,</span> <span class="pre">*input)</span></code>，其中<code class="docutils literal notranslate"><span class="pre">func</span></code>是一个返回张量表达式的函数，而<code class="docutils literal notranslate"><span class="pre">*input</span></code>是<code class="docutils literal notranslate"><span class="pre">func</span></code>的输入。</p>
-<p>让我们从一个例子开始详细介绍。在下方的代码块中，<code class="docutils literal notranslate"><span class="pre">relu</span></code>是一个返回ReLU算子的张量表达式描述的函数。为了构建一个执行单个ReLU算子的Relax函数，在<code class="docutils literal notranslate"><span class="pre">emit_te_example</span></code>中我们首先定义了一个<code class="docutils literal notranslate"><span class="pre">BlockBuilder</span></code>实例<code class="docutils literal notranslate"><span class="pre">bb</span></code>。我们也定义了一个2维128x128大小的张量变量<code class="docutils literal notranslate"><span class="pre">x</span></code>，它将作为ReLU操作的输入张量（同时也是Relax函数的输入）。</p>
-<p>在这之后，我们用<code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">bb.function(name,</span> <span class="pre">[*input])</span></code> API构建一个以<code class="docutils literal notranslate"><span class="pre">x</span></code>为输入的Relax函数 <code class="docutils literal notranslate"><span class="pre">main</span></code>。然后我们构建一个dataflow block。在这个dataflow block里，我们首先用<code class="docutils literal notranslate"><span class="pre">emit_te</span></code>生成一个调用ReLU算子的<code class="docutils literal notranslate"><span class="pre">call_tir</span></code>。这里 <code class="docutils literal notranslate"><span class="pre">emit_te</span></code>在IRModule中生成了一个名字为<code class="docutils literal notranslate"><span class="pre">relu</span></code>的TensorIR函数，然后在dataflow block中生成<code class="docutils literal notranslate"><span class="pre">call_tir(relu,</span> <span class="pre">(x,),</span> <span class="pre">(128,</span> <span class="pre">128),</span> <span class="pre">dtype=&quot;float32&quot;)</span></code>操作。<code class="docutils literal notranslate"><span class="pre">call_tir</span></code>之后是函数返回。</p>
-<p>在这一构造之后，BlockBuilder实例<code class="docutils literal notranslate"><span class="pre">bb</span></code>包含构建完的IRModule，它可以通过<code class="docutils literal notranslate"><span class="pre">bb.get()</span></code>得到。</p>
+<p>为了展示机器学习编译对端到端模型的抽象，需要将模型从 PyTorch 迁移并转换为 TVMScript 实现。然后，手工迁移很难。正如你在 TensorIR 练习中所体验的那样，为模型中的每一层写一个元张量函数需要大量的人力来完成。另外，手工写这些函数是容易犯错的。你可以想象，当你写了几百行，但其中有零星几个 bug，那么找到 bug 的过程将会是痛苦的。</p>
+<p>幸运的是，在 TVM 中有简单的多的方法能够迁移模型。TVM 提供了 <code class="docutils literal notranslate"><span class="pre">relax.BlockBuilder</span></code> 类，它能够从空白的 IRModule 开始一步步的构建端到端模型。（回忆在第四节课中介绍的 Relax 的 Dataflow Block，这里的 “block” 就是代表了 Relax 函数中的 Dataflow Block）</p>
+<p>具体而言，在 <code class="docutils literal notranslate"><span class="pre">BlockBuilder</span></code> 中有 <code class="docutils literal notranslate"><span class="pre">emit_te</span></code> 的 API，它可以将张量表达式（第三节课中介绍过）的算子描述转变成对应 TensorIR 函数的 <code class="docutils literal notranslate"><span class="pre">call_tir</span></code> 运算（<code class="docutils literal notranslate"><span class="pre">call_tir</span></code> 在第四节课中介绍过）。与手工写 TensorIR 函数相比，写张量表达式描述可以用几行代码来完成，这减少了需要的工作量和犯错的概率。</p>
+<p><code class="docutils literal notranslate"><span class="pre">emit_te</span></code> 的函数签名是 <code class="docutils literal notranslate"><span class="pre">emit_te(func,</span> <span class="pre">*input)</span></code>，其中 <code class="docutils literal notranslate"><span class="pre">func</span></code> 是返回张量表达式的函数，而 <code class="docutils literal notranslate"><span class="pre">*input</span></code> 是 <code class="docutils literal notranslate"><span class="pre">func</span></code> 的输入。</p>
+<p>从一个例子开始详细介绍。在下方的代码块中，<code class="docutils literal notranslate"><span class="pre">relu</span></code> 是返回 ReLU 算子的张量表达式描述的函数。为了构建执行单个 ReLU 算子的 Relax 函数，在 <code class="docutils literal notranslate"><span class="pre">emit_te_example</span></code> 中首先定义了 <code class="docutils literal notranslate"><span class="pre">BlockBuilder</span></code> 实例 <code class="docutils literal notranslate"><span class="pre">bb</span></code>。也定义了 2 维 128x128 大小的张量变量 <code class="docutils literal notranslate"><span class="pre">x</span></code>，它将作为 ReLU 运算的输入张量（同时也是 Relax 函数的输入）。</p>
+<p>在这之后，用 <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">bb.function(name,</span> <span class="pre">[*input])</span></code> API构建以 <code class="docutils literal notranslate"><span class="pre">x</span></code> 为输入的 Relax 函数 <code class="docutils literal notranslate"><span class="pre">main</span></code>。然后构建 dataflow block。在这个 dataflow block 里，首先用 <code class="docutils literal notranslate"><span class="pre">emit_te</span></code> 生成调用 ReLU 算子的 <code class="docutils literal notranslate"><span class="pre">call_tir</span></code>。这里 <code class="docutils literal notranslate"><span class="pre">emit_te</span></code> 在 IRModule 中生成了名为 <code class="docutils literal notranslate"><span class="pre">relu</span></code> 的 TensorIR 函数，然后在 dataflow block 中生成 <code class="docutils literal notranslate"><span class="pre">call_tir(relu,</span> <span class="pre">(x,),</span> <span class="pre">(128,</span> <span class="pre">128),</span> <span class="pre">dtype=&quot;float32&quot;)</span></code> 运算。<code class="docutils literal notranslate"><span class="pre">call_tir</span></code> 之后是函数返回。</p>
+<p>在这一构造之后，BlockBuilder 实例 <code class="docutils literal notranslate"><span class="pre">bb</span></code> 包含构建完的 IRModule，它可以通过 <code class="docutils literal notranslate"><span class="pre">bb.get()</span></code> 得到。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">relu</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
@@ -750,7 +737,7 @@ Test set: Average loss: -0.8369, Accuracy: 8388/10000 (84%)
 </div>
 </div>
 </div>
-<p>函数<code class="docutils literal notranslate"><span class="pre">emit_te_example</span></code>返回构造得到的IRModule。为了看的更清楚，我们可以输出这一IRModule。</p>
+<p>函数 <code class="docutils literal notranslate"><span class="pre">emit_te_example</span></code> 返回构造得到的 IRModule。为了看的更清楚，可以输出这一 IRModule。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">IPython</span>
@@ -761,9 +748,9 @@ Test set: Average loss: -0.8369, Accuracy: 8388/10000 (84%)
 </div>
 </div>
 </div>
-<p>正如你看到的，通过BlockBuilder生成的IRModule确实包含了ReLU的TensorIR实现和一个含有调用ReLU实现的<code class="docutils literal notranslate"><span class="pre">call_tir</span></code>的Relax函数</p>
-<p>现在轮到你来用BlockBuilder和<code class="docutils literal notranslate"><span class="pre">emit_te</span></code>来创建一个和之前定义的PyTorch模型等价的IRModule。你可以自己为所有的算子写张量表达式描述。或者，TVM提供了TOPI（TVM Operator Inventory）库，它为不同的算子提供了张量表达式描述。如果你愿意阅读<a class="reference external" href="https://tvm.apache.org/docs/reference/api/python/topi.html">文档</a>来弄懂它的用法，这也是被鼓励的。我们提供了测试函数来检查你的IRModule的正确性。</p>
-<p>注意到每个Conv2d层和linear层都包含了一个偏置加法，这应该在你构建的IRModule中被体现。</p>
+<p>正如你看到的，通过 BlockBuilder 生成的 IRModule 确实包含了 ReLU 的 TensorIR 实现和含有调用 ReLU 实现的 <code class="docutils literal notranslate"><span class="pre">call_tir</span></code> 的 Relax 函数。</p>
+<p>现在轮到你来用 BlockBuilder 和 <code class="docutils literal notranslate"><span class="pre">emit_te</span></code> 来创建和之前定义的 PyTorch 模型等价的 IRModule。你可以自己为所有的算子写张量表达式描述。或者，TVM 提供了 TOPI（TVM Operator Inventory）库，它为不同的算子提供了张量表达式描述。如果你愿意阅读 <a class="reference external" href="https://tvm.apache.org/docs/reference/api/python/topi.html">文档</a> 来弄懂它的用法，这也是被鼓励的。我们提供了测试函数来检查你的 IRModule 的正确性。</p>
+<p>注意到每个 Conv2d 层和 linear 层都包含了偏置加法，这应该在你构建的 IRModule 中被体现。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_model_via_emit_te</span><span class="p">():</span>
@@ -824,8 +811,8 @@ Test set: Average loss: -0.8369, Accuracy: 8388/10000 (84%)
 </section>
 <section id="id2">
 <h2>第三部分: 使用库<a class="headerlink" href="#id2" title="永久链接至标题">#</a></h2>
-<p>正如我们在第四节课中谈到的，我们可以将torch函数整合进IRModule。步骤包括注册一个外部运行时函数，和在IRModule中用<code class="docutils literal notranslate"><span class="pre">call_tir</span></code>调用。</p>
-<p>这里是一个用torch matmul和torch add拉力实现一个linear层的例子。你也可以在第四节课的笔记中找到这个例子。</p>
+<p>正如我们在第四节课中谈到的，我们可以将torch函数整合进IRModule。步骤包括注册一个外部运行时函数，和在 IRModule 中用 <code class="docutils literal notranslate"><span class="pre">call_tir</span></code> 调用。</p>
+<p>这里是用 torch matmul 和 torch add 拉力实现 linear 层的例子。你也可以在第四节课的笔记中找到这个例子。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">register_func</span><span class="p">(</span><span class="s2">&quot;env.linear&quot;</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">torch_linear</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
                  <span class="n">w</span><span class="p">:</span> <span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
@@ -852,8 +839,8 @@ Test set: Average loss: -0.8369, Accuracy: 8388/10000 (84%)
         <span class="k">return</span> <span class="o">...</span>
 </pre></div>
 </div>
-<p>请为你在第二部分中创建的IRModule中的卷积层注册外部函数。你需要使用NumPy或者PyTorch作为你的函数实现。</p>
-<p>你可能需要使用<code class="docutils literal notranslate"><span class="pre">BlockBuilder.emit</span></code>在正在构建的Relax函数的结尾直接添加一个<code class="docutils literal notranslate"><span class="pre">call_tir</span></code>操作。</p>
+<p>请为你在第二部分中创建的 IRModule 中的卷积层注册外部函数。你需要使用 NumPy 或者 PyTorch 作为你的函数实现。</p>
+<p>你可能需要使用 <code class="docutils literal notranslate"><span class="pre">BlockBuilder.emit</span></code> 在正在构建的 Relax 函数的结尾直接添加 <code class="docutils literal notranslate"><span class="pre">call_tir</span></code> 运算。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_model_with_torch_func</span><span class="p">():</span>
@@ -887,12 +874,12 @@ Test set: Average loss: -0.8369, Accuracy: 8388/10000 (84%)
 </section>
 <section id="id3">
 <h2>第四部分: 端到端模型中的程序变换<a class="headerlink" href="#id3" title="永久链接至标题">#</a></h2>
-<p>在TensorIR练习中, 我们学会了如何变换单个TensorIR函数。在端到端模型中变换是类似的。</p>
-<p>和批量矩阵乘法相比，让我们关注一个更加有挑战性的算子：conv2d（二维卷积）。</p>
-<p>首先，让我们介绍一些新的原语：</p>
+<p>在 TensorIR 练习中，学会了如何变换单个 TensorIR 函数。在端到端模型中变换是类似的。</p>
+<p>和批量矩阵乘法相比，让我们关注更加有挑战性的算子：conv2d（二维卷积）。</p>
+<p>首先，介绍一些新的原语：</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">compute_inline</span></code>：它将一个block内联到另一个block中，以减少内存使用大小和内存访问次数</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fuse</span></code>：和<code class="docutils literal notranslate"><span class="pre">split</span></code>相对。融合多个轴。这里<code class="docutils literal notranslate"><span class="pre">fuse</span></code>与<code class="docutils literal notranslate"><span class="pre">parallel</span></code> / <code class="docutils literal notranslate"><span class="pre">vectorize</span></code> / <code class="docutils literal notranslate"><span class="pre">unroll</span></code>一起使用，以增加并行度。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compute_inline</span></code>：它将 block 内联到另一个 block 中，以减少内存使用大小和内存访问次数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fuse</span></code>：和 <code class="docutils literal notranslate"><span class="pre">split</span></code> 相对。融合多个轴。这里 <code class="docutils literal notranslate"><span class="pre">fuse</span></code> 与 <code class="docutils literal notranslate"><span class="pre">parallel</span></code> / <code class="docutils literal notranslate"><span class="pre">vectorize</span></code> / <code class="docutils literal notranslate"><span class="pre">unroll</span></code> 一起使用，以增加并行度。</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1052,11 +1039,11 @@ Test set: Average loss: -0.8369, Accuracy: 8388/10000 (84%)
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="index.html" title="上一页 页">
+    <a class='left-prev' id="prev-link" href="assignment0.html" title="上一页 页">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">上一页</p>
-            <p class="prev-next-title">索引和表格</p>
+            <p class="prev-next-title">2.5. TensorIR 练习</p>
         </div>
     </a>
 </div>
