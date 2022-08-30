@@ -6,4 +6,5 @@
 :hidden:
 
 *
+tutorial/index
 ```

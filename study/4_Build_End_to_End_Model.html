@@ -96,7 +96,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="canonical" href="https://daobook.github.io/mlcbook/study/4_Build_End_to_End_Model.html" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="Ep5: Automatic Program Optimization" href="5_Automatic_Program_Optimization.html" />
+    <link rel="next" title="Install packages" href="5_Automatic_Program_Optimization.html" />
     <link rel="prev" title="张量程序抽象的学习案例：TensorIR" href="3_TensorIR_Tensor_Program_Abstraction_Case_Study_Action.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="zh_CN">
@@ -170,8 +170,45 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_Automatic_Program_Optimization.html">
-     Ep5: Automatic Program Optimization
+     Install packages
     </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="6_Integration_with_Machine_Learning_Frameworks.html">
+     Ep6: Integration with Machine Learning Frameworks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="7_GPU_and_Specialized_Hardware.html">
+     Ep7: GPU and Hardware Acceleration, Part 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="8_GPU_and_Specialized_Hardware_part2.html">
+     Ep8: GPU and Hardware Acceleration, Part 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="9_Computational_Graph_Optimization.html">
+     Ep9: Computational Graph Optimization
+    </a>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="tutorial/index.html">
+     学习教程
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="tutorial/tutorial_tensor_core-zh.html">
+       Tensor Core 编程教程
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -179,8 +216,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../assignment/index.html">
    作业
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -690,15 +727,16 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in links: https://mlc.ai/wheels
-Requirement already satisfied: mlc-ai-nightly in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (0.9.dev1664+g1f3985de0)
-Requirement already satisfied: cloudpickle in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (2.1.0)
-Requirement already satisfied: scipy in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (1.8.1)
-Requirement already satisfied: decorator in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (5.1.1)
-Requirement already satisfied: synr==0.6.0 in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (0.6.0)
-Requirement already satisfied: tornado in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (6.1)
-Requirement already satisfied: attrs in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (21.4.0)
-Requirement already satisfied: psutil in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (5.9.1)
-Requirement already satisfied: numpy in /media/pc/data/4tb/lxw/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (1.23.1)
+Requirement already satisfied: mlc-ai-nightly in /media/pc/data/4tb/lxw/libs/anaconda3/envs/mlc/lib/python3.10/site-packages (0.9.dev1956+ge3f218d71)
+Requirement already satisfied: decorator in /media/pc/data/4tb/lxw/libs/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (5.1.1)
+Requirement already satisfied: Pygments in /media/pc/data/4tb/lxw/libs/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (2.12.0)
+Requirement already satisfied: tornado in /media/pc/data/4tb/lxw/libs/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (6.2)
+Requirement already satisfied: scipy in /media/pc/data/4tb/lxw/libs/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (1.9.0)
+Requirement already satisfied: cloudpickle in /media/pc/data/4tb/lxw/libs/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (2.1.0)
+Requirement already satisfied: psutil in /media/pc/data/4tb/lxw/libs/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (5.9.1)
+Requirement already satisfied: synr==0.6.0 in /media/pc/data/4tb/lxw/libs/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (0.6.0)
+Requirement already satisfied: attrs in /media/pc/data/4tb/lxw/libs/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (22.1.0)
+Requirement already satisfied: numpy in /media/pc/data/4tb/lxw/libs/anaconda3/envs/mlc/lib/python3.10/site-packages (from mlc-ai-nightly) (1.22.3)
 </pre></div>
 </div>
 </div>
@@ -723,24 +761,7 @@ Requirement already satisfied: numpy in /media/pc/data/4tb/lxw/anaconda3/envs/ml
 <span class="kn">from</span> <span class="nn">tvm.script</span> <span class="kn">import</span> <span class="n">tir</span> <span class="k">as</span> <span class="n">T</span><span class="p">,</span> <span class="n">relax</span> <span class="k">as</span> <span class="n">R</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">relax</span>
-<span class="c1"># This is needed for deferring annotation parsing in TVMScript</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span> 
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">IPython</span>
-
-<span class="k">def</span> <span class="nf">code2html</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Helper function to use pygments to turn the code string into highlighted html.&quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">pygments</span>
-    <span class="kn">from</span> <span class="nn">pygments.lexers</span> <span class="kn">import</span> <span class="n">Python3Lexer</span>
-    <span class="kn">from</span> <span class="nn">pygments.formatters</span> <span class="kn">import</span> <span class="n">HtmlFormatter</span>
-    <span class="n">formatter</span> <span class="o">=</span> <span class="n">HtmlFormatter</span><span class="p">()</span>
-    <span class="n">html</span> <span class="o">=</span> <span class="n">pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">Python3Lexer</span><span class="p">(),</span> <span class="n">formatter</span><span class="p">)</span>
-    <span class="k">return</span> <span class="s2">&quot;&lt;style&gt;</span><span class="si">%s</span><span class="s2">&lt;/style&gt;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">formatter</span><span class="o">.</span><span class="n">get_style_defs</span><span class="p">(</span><span class="s2">&quot;.highlight&quot;</span><span class="p">),</span> <span class="n">html</span><span class="p">)</span>
+<span class="c1"># from __future__ import annotations</span>
 </pre></div>
 </div>
 </div>
@@ -750,15 +771,19 @@ Requirement already satisfied: numpy in /media/pc/data/4tb/lxw/anaconda3/envs/ml
 <p>作为一个具体的例子，将在 fashion MNIST 数据集上使用模型。以下代码从 <code class="docutils literal notranslate"><span class="pre">torchvision</span></code> 下载并准备数据并转换成 NumPy 数组。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torchvision</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torchvision.transforms</span> <span class="kn">import</span> <span class="n">ToTensor</span>
+<span class="kn">from</span> <span class="nn">torchvision.datasets</span> <span class="kn">import</span> <span class="n">FashionMNIST</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">FashionMNIST</span><span class="p">(</span>
+
+
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">FashionMNIST</span><span class="p">(</span>
     <span class="n">root</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
     <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">transform</span><span class="o">=</span><span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ToTensor</span><span class="p">()</span>
 <span class="p">)</span>
-<span class="n">test_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">class_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;T-shirt/top&#39;</span><span class="p">,</span> <span class="s1">&#39;Trouser&#39;</span><span class="p">,</span> <span class="s1">&#39;Pullover&#39;</span><span class="p">,</span> <span class="s1">&#39;Dress&#39;</span><span class="p">,</span> <span class="s1">&#39;Coat&#39;</span><span class="p">,</span>
                <span class="s1">&#39;Sandal&#39;</span><span class="p">,</span> <span class="s1">&#39;Shirt&#39;</span><span class="p">,</span> <span class="s1">&#39;Sneaker&#39;</span><span class="p">,</span> <span class="s1">&#39;Bag&#39;</span><span class="p">,</span> <span class="s1">&#39;Ankle boot&#39;</span><span class="p">]</span>
 
@@ -771,7 +796,7 @@ Requirement already satisfied: numpy in /media/pc/data/4tb/lxw/anaconda3/envs/ml
 <p>可以绘制出希望能够预测的图像。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -784,8 +809,8 @@ Requirement already satisfied: numpy in /media/pc/data/4tb/lxw/anaconda3/envs/ml
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ebcad763619305f017e6d24be89bf0fd494de0c7442b7cd82dc89a7521492e4b.png" src="../_images/ebcad763619305f017e6d24be89bf0fd494de0c7442b7cd82dc89a7521492e4b.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Class: Pullover
+<img alt="../_images/421f767e08a18c60db2058b17f54b74bb87d9fb5e33580d7c5d093601784ba5e.png" src="../_images/421f767e08a18c60db2058b17f54b74bb87d9fb5e33580d7c5d093601784ba5e.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Class: Ankle boot
 </pre></div>
 </div>
 </div>
@@ -801,21 +826,21 @@ Requirement already satisfied: numpy in /media/pc/data/4tb/lxw/anaconda3/envs/ml
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2022-07-27 17:16:15--  https://github.com/mlc-ai/web-data/raw/main/models/fasionmnist_mlp_params.pkl
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2022-08-29 19:41:56--  https://github.com/mlc-ai/web-data/raw/main/models/fasionmnist_mlp_params.pkl
 Resolving github.com (github.com)... 20.205.243.166
 Connecting to github.com (github.com)|20.205.243.166|:443... connected.
 HTTP request sent, awaiting response... 302 Found
 Location: https://raw.githubusercontent.com/mlc-ai/web-data/main/models/fasionmnist_mlp_params.pkl [following]
---2022-07-27 17:16:16--  https://raw.githubusercontent.com/mlc-ai/web-data/main/models/fasionmnist_mlp_params.pkl
-Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.110.133, 185.199.109.133, ...
-Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.
+--2022-08-29 19:41:57--  https://raw.githubusercontent.com/mlc-ai/web-data/main/models/fasionmnist_mlp_params.pkl
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.111.133, 185.199.109.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: 407396 (398K) [application/octet-stream]
-Saving to: ‘fasionmnist_mlp_params.pkl.1’
+Saving to: ‘fasionmnist_mlp_params.pkl.2’
 
-fasionmnist_mlp_par 100%[===================&gt;] 397.85K  2.12MB/s    in 0.2s    
+fasionmnist_mlp_par 100%[===================&gt;] 397.85K  1.98MB/s    in 0.2s    
 
-2022-07-27 17:16:16 (2.12 MB/s) - ‘fasionmnist_mlp_params.pkl.1’ saved [407396/407396]
+2022-08-29 19:41:57 (1.98 MB/s) - ‘fasionmnist_mlp_params.pkl.2’ saved [407396/407396]
 </pre></div>
 </div>
 </div>
@@ -857,10 +882,10 @@ fasionmnist_mlp_par 100%[===================&gt;] 397.85K  2.12MB/s    in 0.2s
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-14.582505  -15.665963   -7.037974   -4.312187    8.4736395  -9.438515
-  -12.428696  -35.270702   -1.1583054 -34.827248 ]]
-[4]
-Numpy-MLP Prediction: Coat
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-33.516502  -50.597935  -23.103085  -36.11738   -25.598207   -0.969736
+  -19.762392    1.2418429  -3.706241   14.668889 ]]
+[9]
+Numpy-MLP Prediction: Ankle boot
 </pre></div>
 </div>
 </div>
@@ -932,7 +957,7 @@ Numpy-MLP Prediction: Coat
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Low-level Numpy MLP Prediction: Coat
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Low-level Numpy MLP Prediction: Ankle boot
 </pre></div>
 </div>
 </div>
@@ -944,7 +969,10 @@ Numpy-MLP Prediction: Coat
 <p>有了底级 NumPy 代码作为参考，现在准备利用 MLC 抽象来实现端到端模型运行。下面的代码展示了模型的 TVMScript 实现。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">ir_module</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 这是 TVMScript 中延迟注释解析所需要的</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="nd">@tvm</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">ir_module</span>
 <span class="k">class</span> <span class="nc">MyModule</span><span class="p">:</span> 
     <span class="nd">@T</span><span class="o">.</span><span class="n">prim_func</span>
     <span class="k">def</span> <span class="nf">relu0</span><span class="p">(</span><span class="n">X</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> 
@@ -1095,7 +1123,7 @@ Numpy-MLP Prediction: Coat
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Low-level Numpy with CallTIR Prediction: Coat
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Low-level Numpy with CallTIR Prediction: Ankle boot
 </pre></div>
 </div>
 </div>
@@ -1152,156 +1180,83 @@ Numpy-MLP Prediction: Coat
 <p>在上一节中，讨论了端到端模型执行的抽象。本节介绍如何构建和运行 IRModule。首先回顾现有的 IRModule。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">IPython</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">code2html</span><span class="p">(</span><span class="n">MyModule</span><span class="o">.</span><span class="n">script</span><span class="p">()))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MyModule</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>pre { line-height: 125%; }
-td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-.highlight .hll { background-color: #ffffcc }
-.highlight { background: #f8f8f8; }
-.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
-.highlight .err { border: 1px solid #FF0000 } /* Error */
-.highlight .k { color: #008000; font-weight: bold } /* Keyword */
-.highlight .o { color: #666666 } /* Operator */
-.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
-.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
-.highlight .cp { color: #9C6500 } /* Comment.Preproc */
-.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
-.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
-.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #E40000 } /* Generic.Error */
-.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.highlight .gi { color: #008400 } /* Generic.Inserted */
-.highlight .go { color: #717171 } /* Generic.Output */
-.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
-.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #008000 } /* Keyword.Pseudo */
-.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #B00040 } /* Keyword.Type */
-.highlight .m { color: #666666 } /* Literal.Number */
-.highlight .s { color: #BA2121 } /* Literal.String */
-.highlight .na { color: #687822 } /* Name.Attribute */
-.highlight .nb { color: #008000 } /* Name.Builtin */
-.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
-.highlight .no { color: #880000 } /* Name.Constant */
-.highlight .nd { color: #AA22FF } /* Name.Decorator */
-.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #0000FF } /* Name.Function */
-.highlight .nl { color: #767600 } /* Name.Label */
-.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
-.highlight .nv { color: #19177C } /* Name.Variable */
-.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #666666 } /* Literal.Number.Bin */
-.highlight .mf { color: #666666 } /* Literal.Number.Float */
-.highlight .mh { color: #666666 } /* Literal.Number.Hex */
-.highlight .mi { color: #666666 } /* Literal.Number.Integer */
-.highlight .mo { color: #666666 } /* Literal.Number.Oct */
-.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
-.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
-.highlight .sc { color: #BA2121 } /* Literal.String.Char */
-.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
-.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
-.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
-.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
-.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
-.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
-.highlight .sx { color: #008000 } /* Literal.String.Other */
-.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
-.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
-.highlight .ss { color: #19177C } /* Literal.String.Symbol */
-.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
-.highlight .fm { color: #0000FF } /* Name.Function.Magic */
-.highlight .vc { color: #19177C } /* Name.Variable.Class */
-.highlight .vg { color: #19177C } /* Name.Variable.Global */
-.highlight .vi { color: #19177C } /* Name.Variable.Instance */
-.highlight .vm { color: #19177C } /* Name.Variable.Magic */
-.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">ir_module</span>
-<span class="k">class</span> <span class="nc">Module</span><span class="p">:</span>
-    <span class="nd">@tir</span><span class="o">.</span><span class="n">prim_func</span>
-    <span class="k">def</span> <span class="nf">linear0</span><span class="p">(</span><span class="n">X</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">W</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">784</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">B</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">Z</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># function attr dict</span>
-        <span class="n">tir</span><span class="o">.</span><span class="n">func_attr</span><span class="p">({</span><span class="s2">&quot;global_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;linear0&quot;</span><span class="p">,</span> <span class="s2">&quot;tir.noalias&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
-        <span class="c1"># body</span>
-        <span class="c1"># with tir.block(&quot;root&quot;)</span>
-        <span class="n">Y</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">alloc_buffer</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">784</span><span class="p">):</span>
-            <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">):</span>
-                <span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">,</span> <span class="n">vk</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="s2">&quot;SSR&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">reads</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vk</span><span class="p">],</span> <span class="n">W</span><span class="p">[</span><span class="n">vj</span><span class="p">,</span> <span class="n">vk</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">writes</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">])</span>
-                <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">init</span><span class="p">():</span>
-                    <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-                <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">+</span> <span class="n">X</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vk</span><span class="p">]</span> <span class="o">*</span> <span class="n">W</span><span class="p">[</span><span class="n">vj</span><span class="p">,</span> <span class="n">vk</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
-            <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;Z&quot;</span><span class="p">):</span>
-                <span class="n">vi</span><span class="p">,</span> <span class="n">vj</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="s2">&quot;SS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">reads</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">],</span> <span class="n">B</span><span class="p">[</span><span class="n">vj</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">writes</span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">])</span>
-                <span class="n">Z</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="n">vj</span><span class="p">]</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-C129">@tvm</span><span class=" -Color -Color-Bold -Color-Bold-C129">.</span>script<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>ir_module
+<span class=" -Color -Color-Bold -Color-Bold-C28">class</span> <span class=" -Color -Color-Bold -Color-Bold-C21">Module</span>:
+    <span class=" -Color -Color-C129">@T</span><span class=" -Color -Color-Bold -Color-Bold-C129">.</span>prim_func
+    <span class=" -Color -Color-Bold -Color-Bold-C28">def</span> <span class=" -Color -Color-C21">relu0</span>(X: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>], Y: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>]) <span class=" -Color -Color-Bold -Color-Bold-C129">-&gt;</span> <span class=" -Color -Color-Bold -Color-Bold-C28">None</span>:
+        <span class=" -Color -Color-C30"># function attr dict</span>
+        T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>func_attr({<span class=" -Color -Color-C124">&quot;global_symbol&quot;</span>: <span class=" -Color -Color-C124">&quot;relu0&quot;</span>, <span class=" -Color -Color-C124">&quot;tir.noalias&quot;</span>: <span class=" -Color -Color-Bold -Color-Bold-C28">True</span>})
+        <span class=" -Color -Color-C30"># body</span>
+        <span class=" -Color -Color-C30"># with T.block(&quot;root&quot;)</span>
+        <span class=" -Color -Color-Bold -Color-Bold-C28">for</span> i, j <span class=" -Color -Color-Bold -Color-Bold-C28">in</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>grid(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>):
+            <span class=" -Color -Color-Bold -Color-Bold-C28">with</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>block(<span class=" -Color -Color-C124">&quot;Y&quot;</span>):
+                vi, vj <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>axis<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>remap(<span class=" -Color -Color-C124">&quot;SS&quot;</span>, [i, j])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>reads(X[vi, vj])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>writes(Y[vi, vj])
+                Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>max(X[vi, vj], T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>float32(<span class=" -Color -Color-C28">0</span>))
     
-    <span class="nd">@tir</span><span class="o">.</span><span class="n">prim_func</span>
-    <span class="k">def</span> <span class="nf">linear1</span><span class="p">(</span><span class="n">X</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">W</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">B</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">Z</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># function attr dict</span>
-        <span class="n">tir</span><span class="o">.</span><span class="n">func_attr</span><span class="p">({</span><span class="s2">&quot;global_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;linear1&quot;</span><span class="p">,</span> <span class="s2">&quot;tir.noalias&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
-        <span class="c1"># body</span>
-        <span class="c1"># with tir.block(&quot;root&quot;)</span>
-        <span class="n">Y</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">alloc_buffer</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
-            <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">):</span>
-                <span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">,</span> <span class="n">vk</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="s2">&quot;SSR&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">reads</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vk</span><span class="p">],</span> <span class="n">W</span><span class="p">[</span><span class="n">vj</span><span class="p">,</span> <span class="n">vk</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">writes</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">])</span>
-                <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">init</span><span class="p">():</span>
-                    <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-                <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">+</span> <span class="n">X</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vk</span><span class="p">]</span> <span class="o">*</span> <span class="n">W</span><span class="p">[</span><span class="n">vj</span><span class="p">,</span> <span class="n">vk</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
-            <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;Z&quot;</span><span class="p">):</span>
-                <span class="n">vi</span><span class="p">,</span> <span class="n">vj</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="s2">&quot;SS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">reads</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">],</span> <span class="n">B</span><span class="p">[</span><span class="n">vj</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">writes</span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">])</span>
-                <span class="n">Z</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="n">vj</span><span class="p">]</span>
+    <span class=" -Color -Color-C129">@T</span><span class=" -Color -Color-Bold -Color-Bold-C129">.</span>prim_func
+    <span class=" -Color -Color-Bold -Color-Bold-C28">def</span> <span class=" -Color -Color-C21">linear1</span>(X: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>], W: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[(<span class=" -Color -Color-C28">10</span>, <span class=" -Color -Color-C28">128</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>], B: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[<span class=" -Color -Color-C28">10</span>, <span class=" -Color -Color-C124">&quot;float32&quot;</span>], Z: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">10</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>]) <span class=" -Color -Color-Bold -Color-Bold-C129">-&gt;</span> <span class=" -Color -Color-Bold -Color-Bold-C28">None</span>:
+        <span class=" -Color -Color-C30"># function attr dict</span>
+        T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>func_attr({<span class=" -Color -Color-C124">&quot;global_symbol&quot;</span>: <span class=" -Color -Color-C124">&quot;linear1&quot;</span>, <span class=" -Color -Color-C124">&quot;tir.noalias&quot;</span>: <span class=" -Color -Color-Bold -Color-Bold-C28">True</span>})
+        <span class=" -Color -Color-C30"># body</span>
+        <span class=" -Color -Color-C30"># with T.block(&quot;root&quot;)</span>
+        Y <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>alloc_buffer([<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">10</span>], dtype<span class=" -Color -Color-Bold -Color-Bold-C129">=</span><span class=" -Color -Color-C124">&quot;float32&quot;</span>)
+        <span class=" -Color -Color-Bold -Color-Bold-C28">for</span> i, j, k <span class=" -Color -Color-Bold -Color-Bold-C28">in</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>grid(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">10</span>, <span class=" -Color -Color-C28">128</span>):
+            <span class=" -Color -Color-Bold -Color-Bold-C28">with</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>block(<span class=" -Color -Color-C124">&quot;Y&quot;</span>):
+                vi, vj, vk <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>axis<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>remap(<span class=" -Color -Color-C124">&quot;SSR&quot;</span>, [i, j, k])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>reads(X[vi, vk], W[vj, vk])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>writes(Y[vi, vj])
+                <span class=" -Color -Color-Bold -Color-Bold-C28">with</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>init():
+                    Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>float32(<span class=" -Color -Color-C28">0</span>)
+                Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">+</span> X[vi, vk] <span class=" -Color -Color-Bold -Color-Bold-C129">*</span> W[vj, vk]
+        <span class=" -Color -Color-Bold -Color-Bold-C28">for</span> i, j <span class=" -Color -Color-Bold -Color-Bold-C28">in</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>grid(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">10</span>):
+            <span class=" -Color -Color-Bold -Color-Bold-C28">with</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>block(<span class=" -Color -Color-C124">&quot;Z&quot;</span>):
+                vi, vj <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>axis<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>remap(<span class=" -Color -Color-C124">&quot;SS&quot;</span>, [i, j])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>reads(Y[vi, vj], B[vj])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>writes(Z[vi, vj])
+                Z[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">+</span> B[vj]
     
-    <span class="nd">@relax</span><span class="o">.</span><span class="n">function</span>
-    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">),</span> <span class="n">w0</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">((</span><span class="mi">128</span><span class="p">,</span> <span class="mi">784</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">),</span> <span class="n">b0</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">((</span><span class="mi">128</span><span class="p">,),</span> <span class="s2">&quot;float32&quot;</span><span class="p">),</span> <span class="n">w1</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">),</span> <span class="n">b1</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">((</span><span class="mi">10</span><span class="p">,),</span> <span class="s2">&quot;float32&quot;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="n">ndim</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
-        <span class="c1"># block 0</span>
-        <span class="k">with</span> <span class="n">relax</span><span class="o">.</span><span class="n">dataflow</span><span class="p">():</span>
-            <span class="n">lv0</span> <span class="o">=</span> <span class="n">relax</span><span class="o">.</span><span class="n">call_tir</span><span class="p">(</span><span class="n">linear0</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w0</span><span class="p">,</span> <span class="n">b0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-            <span class="n">lv1</span> <span class="o">=</span> <span class="n">relax</span><span class="o">.</span><span class="n">call_tir</span><span class="p">(</span><span class="n">relu0</span><span class="p">,</span> <span class="p">(</span><span class="n">lv0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="n">relax</span><span class="o">.</span><span class="n">call_tir</span><span class="p">(</span><span class="n">linear1</span><span class="p">,</span> <span class="p">(</span><span class="n">lv1</span><span class="p">,</span> <span class="n">w1</span><span class="p">,</span> <span class="n">b1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-            <span class="n">relax</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">out</span>
+    <span class=" -Color -Color-C129">@R</span><span class=" -Color -Color-Bold -Color-Bold-C129">.</span>function
+    <span class=" -Color -Color-Bold -Color-Bold-C28">def</span> <span class=" -Color -Color-C21">main</span>(x: Tensor((<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">784</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>), w0: Tensor((<span class=" -Color -Color-C28">128</span>, <span class=" -Color -Color-C28">784</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>), b0: Tensor((<span class=" -Color -Color-C28">128</span>,), <span class=" -Color -Color-C124">&quot;float32&quot;</span>), w1: Tensor((<span class=" -Color -Color-C28">10</span>, <span class=" -Color -Color-C28">128</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>), b1: Tensor((<span class=" -Color -Color-C28">10</span>,), <span class=" -Color -Color-C124">&quot;float32&quot;</span>)) <span class=" -Color -Color-Bold -Color-Bold-C129">-&gt;</span> Tensor(<span class=" -Color -Color-Bold -Color-Bold-C28">None</span>, <span class=" -Color -Color-C124">&quot;float32&quot;</span>, ndim <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> <span class=" -Color -Color-C28">2</span>):
+        <span class=" -Color -Color-C30"># block 0</span>
+        <span class=" -Color -Color-Bold -Color-Bold-C28">with</span> R<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>dataflow():
+            lv0 <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> R<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>call_tir(linear0, (x, w0, b0), (<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>), dtype<span class=" -Color -Color-Bold -Color-Bold-C129">=</span><span class=" -Color -Color-C124">&quot;float32&quot;</span>)
+            lv1 <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> R<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>call_tir(relu0, (lv0,), (<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>), dtype<span class=" -Color -Color-Bold -Color-Bold-C129">=</span><span class=" -Color -Color-C124">&quot;float32&quot;</span>)
+            out <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> R<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>call_tir(linear1, (lv1, w1, b1), (<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">10</span>), dtype<span class=" -Color -Color-Bold -Color-Bold-C129">=</span><span class=" -Color -Color-C124">&quot;float32&quot;</span>)
+            R<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>output(out)
+        <span class=" -Color -Color-Bold -Color-Bold-C28">return</span> out
     
-    <span class="nd">@tir</span><span class="o">.</span><span class="n">prim_func</span>
-    <span class="k">def</span> <span class="nf">relu0</span><span class="p">(</span><span class="n">X</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">Y</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># function attr dict</span>
-        <span class="n">tir</span><span class="o">.</span><span class="n">func_attr</span><span class="p">({</span><span class="s2">&quot;global_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;relu0&quot;</span><span class="p">,</span> <span class="s2">&quot;tir.noalias&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
-        <span class="c1"># body</span>
-        <span class="c1"># with tir.block(&quot;root&quot;)</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
-            <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">):</span>
-                <span class="n">vi</span><span class="p">,</span> <span class="n">vj</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="s2">&quot;SS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">reads</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">writes</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">])</span>
-                <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">],</span> <span class="n">tir</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class=" -Color -Color-C129">@T</span><span class=" -Color -Color-Bold -Color-Bold-C129">.</span>prim_func
+    <span class=" -Color -Color-Bold -Color-Bold-C28">def</span> <span class=" -Color -Color-C21">linear0</span>(X: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">784</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>], W: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[(<span class=" -Color -Color-C28">128</span>, <span class=" -Color -Color-C28">784</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>], B: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[<span class=" -Color -Color-C28">128</span>, <span class=" -Color -Color-C124">&quot;float32&quot;</span>], Z: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>]) <span class=" -Color -Color-Bold -Color-Bold-C129">-&gt;</span> <span class=" -Color -Color-Bold -Color-Bold-C28">None</span>:
+        <span class=" -Color -Color-C30"># function attr dict</span>
+        T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>func_attr({<span class=" -Color -Color-C124">&quot;global_symbol&quot;</span>: <span class=" -Color -Color-C124">&quot;linear0&quot;</span>, <span class=" -Color -Color-C124">&quot;tir.noalias&quot;</span>: <span class=" -Color -Color-Bold -Color-Bold-C28">True</span>})
+        <span class=" -Color -Color-C30"># body</span>
+        <span class=" -Color -Color-C30"># with T.block(&quot;root&quot;)</span>
+        Y <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>alloc_buffer([<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>], dtype<span class=" -Color -Color-Bold -Color-Bold-C129">=</span><span class=" -Color -Color-C124">&quot;float32&quot;</span>)
+        <span class=" -Color -Color-Bold -Color-Bold-C28">for</span> i, j, k <span class=" -Color -Color-Bold -Color-Bold-C28">in</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>grid(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>, <span class=" -Color -Color-C28">784</span>):
+            <span class=" -Color -Color-Bold -Color-Bold-C28">with</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>block(<span class=" -Color -Color-C124">&quot;Y&quot;</span>):
+                vi, vj, vk <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>axis<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>remap(<span class=" -Color -Color-C124">&quot;SSR&quot;</span>, [i, j, k])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>reads(X[vi, vk], W[vj, vk])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>writes(Y[vi, vj])
+                <span class=" -Color -Color-Bold -Color-Bold-C28">with</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>init():
+                    Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>float32(<span class=" -Color -Color-C28">0</span>)
+                Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">+</span> X[vi, vk] <span class=" -Color -Color-Bold -Color-Bold-C129">*</span> W[vj, vk]
+        <span class=" -Color -Color-Bold -Color-Bold-C28">for</span> i, j <span class=" -Color -Color-Bold -Color-Bold-C28">in</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>grid(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>):
+            <span class=" -Color -Color-Bold -Color-Bold-C28">with</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>block(<span class=" -Color -Color-C124">&quot;Z&quot;</span>):
+                vi, vj <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>axis<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>remap(<span class=" -Color -Color-C124">&quot;SS&quot;</span>, [i, j])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>reads(Y[vi, vj], B[vj])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>writes(Z[vi, vj])
+                Z[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">+</span> B[vj]
     
 </pre></div>
-
-</div></div>
+</div>
+</div>
 </div>
 <p>调用 <code class="docutils literal notranslate"><span class="pre">relax.vm.build</span></code> 来构建这个函数。注意：Relax 仍在开发中，因此某些 API 可能会更改。不过，主要目标是熟悉端到端模型的整体 MLC 流程（构造、变换、构建）。</p>
 <div class="cell docutils container">
@@ -1348,8 +1303,8 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tvm.nd.NDArray shape=(1, 10), cpu(0)&gt;
-array([[-14.5825   , -15.665957 ,  -7.037974 ,  -4.3121886,   8.473637 ,
-         -9.438519 , -12.428696 , -35.270702 ,  -1.1583066, -34.82725  ]],
+array([[-33.5165   , -50.597935 , -23.103092 , -36.11739  , -25.598202 ,
+         -0.9697361, -19.762398 ,   1.2418445,  -3.7062423,  14.668888 ]],
       dtype=float32)
 </pre></div>
 </div>
@@ -1364,7 +1319,7 @@ array([[-14.5825   , -15.665957 ,  -7.037974 ,  -4.3121886,   8.473637 ,
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MyModule Prediction: Coat
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MyModule Prediction: Ankle boot
 </pre></div>
 </div>
 </div>
@@ -1451,7 +1406,7 @@ array([[-14.5825   , -15.665957 ,  -7.037974 ,  -4.3121886,   8.473637 ,
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MyModuleWithExternCall Prediction: Coat
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MyModuleWithExternCall Prediction: Ankle boot
 </pre></div>
 </div>
 </div>
@@ -1518,7 +1473,7 @@ array([[-14.5825   , -15.665957 ,  -7.037974 ,  -4.3121886,   8.473637 ,
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MyModuleMixture Prediction: Coat
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MyModuleMixture Prediction: Ankle boot
 </pre></div>
 </div>
 </div>
@@ -1530,121 +1485,48 @@ array([[-14.5825   , -15.665957 ,  -7.037974 ,  -4.3121886,   8.473637 ,
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MyModuleWithParams</span> <span class="o">=</span> <span class="n">relax</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">BindParams</span><span class="p">(</span><span class="s2">&quot;main&quot;</span><span class="p">,</span> <span class="n">nd_params</span><span class="p">)(</span><span class="n">MyModuleMixture</span><span class="p">)</span>
-<span class="n">IPython</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">code2html</span><span class="p">(</span><span class="n">MyModuleWithParams</span><span class="o">.</span><span class="n">script</span><span class="p">()))</span>
+<span class="n">MyModuleWithParams</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>pre { line-height: 125%; }
-td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-.highlight .hll { background-color: #ffffcc }
-.highlight { background: #f8f8f8; }
-.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
-.highlight .err { border: 1px solid #FF0000 } /* Error */
-.highlight .k { color: #008000; font-weight: bold } /* Keyword */
-.highlight .o { color: #666666 } /* Operator */
-.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
-.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
-.highlight .cp { color: #9C6500 } /* Comment.Preproc */
-.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
-.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
-.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #E40000 } /* Generic.Error */
-.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.highlight .gi { color: #008400 } /* Generic.Inserted */
-.highlight .go { color: #717171 } /* Generic.Output */
-.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
-.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #008000 } /* Keyword.Pseudo */
-.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #B00040 } /* Keyword.Type */
-.highlight .m { color: #666666 } /* Literal.Number */
-.highlight .s { color: #BA2121 } /* Literal.String */
-.highlight .na { color: #687822 } /* Name.Attribute */
-.highlight .nb { color: #008000 } /* Name.Builtin */
-.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
-.highlight .no { color: #880000 } /* Name.Constant */
-.highlight .nd { color: #AA22FF } /* Name.Decorator */
-.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #0000FF } /* Name.Function */
-.highlight .nl { color: #767600 } /* Name.Label */
-.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
-.highlight .nv { color: #19177C } /* Name.Variable */
-.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #666666 } /* Literal.Number.Bin */
-.highlight .mf { color: #666666 } /* Literal.Number.Float */
-.highlight .mh { color: #666666 } /* Literal.Number.Hex */
-.highlight .mi { color: #666666 } /* Literal.Number.Integer */
-.highlight .mo { color: #666666 } /* Literal.Number.Oct */
-.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
-.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
-.highlight .sc { color: #BA2121 } /* Literal.String.Char */
-.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
-.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
-.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
-.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
-.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
-.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
-.highlight .sx { color: #008000 } /* Literal.String.Other */
-.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
-.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
-.highlight .ss { color: #19177C } /* Literal.String.Symbol */
-.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
-.highlight .fm { color: #0000FF } /* Name.Function.Magic */
-.highlight .vc { color: #19177C } /* Name.Variable.Class */
-.highlight .vg { color: #19177C } /* Name.Variable.Global */
-.highlight .vi { color: #19177C } /* Name.Variable.Instance */
-.highlight .vm { color: #19177C } /* Name.Variable.Magic */
-.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">ir_module</span>
-<span class="k">class</span> <span class="nc">Module</span><span class="p">:</span>
-    <span class="nd">@relax</span><span class="o">.</span><span class="n">function</span>
-    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="n">ndim</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
-        <span class="c1"># block 0</span>
-        <span class="k">with</span> <span class="n">relax</span><span class="o">.</span><span class="n">dataflow</span><span class="p">():</span>
-            <span class="n">lv0</span> <span class="o">=</span> <span class="n">relax</span><span class="o">.</span><span class="n">call_tir</span><span class="p">(</span><span class="n">linear0</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">meta</span><span class="p">[</span><span class="n">relay</span><span class="o">.</span><span class="n">Constant</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">meta</span><span class="p">[</span><span class="n">relay</span><span class="o">.</span><span class="n">Constant</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-            <span class="n">lv1</span> <span class="o">=</span> <span class="n">relax</span><span class="o">.</span><span class="n">call_tir</span><span class="p">(</span><span class="s2">&quot;env.relu&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">lv0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="n">relax</span><span class="o">.</span><span class="n">call_tir</span><span class="p">(</span><span class="s2">&quot;env.linear&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">lv1</span><span class="p">,</span> <span class="n">meta</span><span class="p">[</span><span class="n">relay</span><span class="o">.</span><span class="n">Constant</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">meta</span><span class="p">[</span><span class="n">relay</span><span class="o">.</span><span class="n">Constant</span><span class="p">][</span><span class="mi">3</span><span class="p">]),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-            <span class="n">relax</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">out</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-C129">@tvm</span><span class=" -Color -Color-Bold -Color-Bold-C129">.</span>script<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>ir_module
+<span class=" -Color -Color-Bold -Color-Bold-C28">class</span> <span class=" -Color -Color-Bold -Color-Bold-C21">Module</span>:
+    <span class=" -Color -Color-C129">@R</span><span class=" -Color -Color-Bold -Color-Bold-C129">.</span>function
+    <span class=" -Color -Color-Bold -Color-Bold-C28">def</span> <span class=" -Color -Color-C21">main</span>(x: Tensor((<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">784</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>)) <span class=" -Color -Color-Bold -Color-Bold-C129">-&gt;</span> Tensor(<span class=" -Color -Color-Bold -Color-Bold-C28">None</span>, <span class=" -Color -Color-C124">&quot;float32&quot;</span>, ndim <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> <span class=" -Color -Color-C28">2</span>):
+        <span class=" -Color -Color-C30"># block 0</span>
+        <span class=" -Color -Color-Bold -Color-Bold-C28">with</span> R<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>dataflow():
+            lv0 <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> R<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>call_tir(linear0, (x, meta[relay<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Constant][<span class=" -Color -Color-C28">0</span>], meta[relay<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Constant][<span class=" -Color -Color-C28">1</span>]), (<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>), dtype<span class=" -Color -Color-Bold -Color-Bold-C129">=</span><span class=" -Color -Color-C124">&quot;float32&quot;</span>)
+            lv1 <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> R<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>call_tir(<span class=" -Color -Color-C124">&quot;env.relu&quot;</span>, (lv0,), (<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>), dtype<span class=" -Color -Color-Bold -Color-Bold-C129">=</span><span class=" -Color -Color-C124">&quot;float32&quot;</span>)
+            out <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> R<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>call_tir(<span class=" -Color -Color-C124">&quot;env.linear&quot;</span>, (lv1, meta[relay<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Constant][<span class=" -Color -Color-C28">2</span>], meta[relay<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Constant][<span class=" -Color -Color-C28">3</span>]), (<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">10</span>), dtype<span class=" -Color -Color-Bold -Color-Bold-C129">=</span><span class=" -Color -Color-C124">&quot;float32&quot;</span>)
+            R<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>output(out)
+        <span class=" -Color -Color-Bold -Color-Bold-C28">return</span> out
     
-    <span class="nd">@tir</span><span class="o">.</span><span class="n">prim_func</span>
-    <span class="k">def</span> <span class="nf">linear0</span><span class="p">(</span><span class="n">X</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">W</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">784</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">B</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">],</span> <span class="n">Z</span><span class="p">:</span> <span class="n">tir</span><span class="o">.</span><span class="n">Buffer</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># function attr dict</span>
-        <span class="n">tir</span><span class="o">.</span><span class="n">func_attr</span><span class="p">({</span><span class="s2">&quot;global_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;linear0&quot;</span><span class="p">,</span> <span class="s2">&quot;tir.noalias&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
-        <span class="c1"># body</span>
-        <span class="c1"># with tir.block(&quot;root&quot;)</span>
-        <span class="n">Y</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">alloc_buffer</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">784</span><span class="p">):</span>
-            <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">):</span>
-                <span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">,</span> <span class="n">vk</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="s2">&quot;SSR&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">reads</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vk</span><span class="p">],</span> <span class="n">W</span><span class="p">[</span><span class="n">vj</span><span class="p">,</span> <span class="n">vk</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">writes</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">])</span>
-                <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">init</span><span class="p">():</span>
-                    <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-                <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">+</span> <span class="n">X</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vk</span><span class="p">]</span> <span class="o">*</span> <span class="n">W</span><span class="p">[</span><span class="n">vj</span><span class="p">,</span> <span class="n">vk</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">tir</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
-            <span class="k">with</span> <span class="n">tir</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;Z&quot;</span><span class="p">):</span>
-                <span class="n">vi</span><span class="p">,</span> <span class="n">vj</span> <span class="o">=</span> <span class="n">tir</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="s2">&quot;SS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">reads</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">],</span> <span class="n">B</span><span class="p">[</span><span class="n">vj</span><span class="p">])</span>
-                <span class="n">tir</span><span class="o">.</span><span class="n">writes</span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">])</span>
-                <span class="n">Z</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="n">vj</span><span class="p">]</span>
+    <span class=" -Color -Color-C129">@T</span><span class=" -Color -Color-Bold -Color-Bold-C129">.</span>prim_func
+    <span class=" -Color -Color-Bold -Color-Bold-C28">def</span> <span class=" -Color -Color-C21">linear0</span>(X: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">784</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>], W: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[(<span class=" -Color -Color-C28">128</span>, <span class=" -Color -Color-C28">784</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>], B: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[<span class=" -Color -Color-C28">128</span>, <span class=" -Color -Color-C124">&quot;float32&quot;</span>], Z: T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>Buffer[(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>), <span class=" -Color -Color-C124">&quot;float32&quot;</span>]) <span class=" -Color -Color-Bold -Color-Bold-C129">-&gt;</span> <span class=" -Color -Color-Bold -Color-Bold-C28">None</span>:
+        <span class=" -Color -Color-C30"># function attr dict</span>
+        T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>func_attr({<span class=" -Color -Color-C124">&quot;global_symbol&quot;</span>: <span class=" -Color -Color-C124">&quot;linear0&quot;</span>, <span class=" -Color -Color-C124">&quot;tir.noalias&quot;</span>: <span class=" -Color -Color-Bold -Color-Bold-C28">True</span>})
+        <span class=" -Color -Color-C30"># body</span>
+        <span class=" -Color -Color-C30"># with T.block(&quot;root&quot;)</span>
+        Y <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>alloc_buffer([<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>], dtype<span class=" -Color -Color-Bold -Color-Bold-C129">=</span><span class=" -Color -Color-C124">&quot;float32&quot;</span>)
+        <span class=" -Color -Color-Bold -Color-Bold-C28">for</span> i, j, k <span class=" -Color -Color-Bold -Color-Bold-C28">in</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>grid(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>, <span class=" -Color -Color-C28">784</span>):
+            <span class=" -Color -Color-Bold -Color-Bold-C28">with</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>block(<span class=" -Color -Color-C124">&quot;Y&quot;</span>):
+                vi, vj, vk <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>axis<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>remap(<span class=" -Color -Color-C124">&quot;SSR&quot;</span>, [i, j, k])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>reads(X[vi, vk], W[vj, vk])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>writes(Y[vi, vj])
+                <span class=" -Color -Color-Bold -Color-Bold-C28">with</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>init():
+                    Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>float32(<span class=" -Color -Color-C28">0</span>)
+                Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">+</span> X[vi, vk] <span class=" -Color -Color-Bold -Color-Bold-C129">*</span> W[vj, vk]
+        <span class=" -Color -Color-Bold -Color-Bold-C28">for</span> i, j <span class=" -Color -Color-Bold -Color-Bold-C28">in</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>grid(<span class=" -Color -Color-C28">1</span>, <span class=" -Color -Color-C28">128</span>):
+            <span class=" -Color -Color-Bold -Color-Bold-C28">with</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>block(<span class=" -Color -Color-C124">&quot;Z&quot;</span>):
+                vi, vj <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>axis<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>remap(<span class=" -Color -Color-C124">&quot;SS&quot;</span>, [i, j])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>reads(Y[vi, vj], B[vj])
+                T<span class=" -Color -Color-Bold -Color-Bold-C129">.</span>writes(Z[vi, vj])
+                Z[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">=</span> Y[vi, vj] <span class=" -Color -Color-Bold -Color-Bold-C129">+</span> B[vj]
     
 </pre></div>
-
-</div></div>
+</div>
+</div>
 </div>
 <p>在上面的脚本中，<code class="docutils literal notranslate"><span class="pre">meta[relay.Constant][0]</span></code> （译者注：目前 Relax 的常量表达依然继承自 Relay ，未来改API可能会更改） 对应于存储常量的隐式字典（它没有显示为脚本的一部分，但仍然是 IRModule 的一部分）。如果构建变换后的 IRModule，现在可以通过传入输入数据来调用该函数。</p>
 <div class="cell docutils container">
@@ -1660,7 +1542,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MyModuleWithParams Prediction: Coat
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MyModuleWithParams Prediction: Ankle boot
 </pre></div>
 </div>
 </div>
@@ -1731,7 +1613,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     <a class='right-next' id="next-link" href="5_Automatic_Program_Optimization.html" title="下一页 页">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">下一页</p>
-        <p class="prev-next-title">Ep5: Automatic Program Optimization</p>
+        <p class="prev-next-title">Install packages</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -1742,7 +1624,9 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-      &copy; Copyright .<br/>
+    By xinetzone<br/>
+  
+      &copy; Copyright mlc.ai.<br/>
 </p>
         </footer>
     </div>

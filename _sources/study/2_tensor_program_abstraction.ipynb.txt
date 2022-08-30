@@ -1393,7 +1393,7 @@
     },
     "vscode": {
       "interpreter": {
-        "hash": "aaffa6035209f65dc356111783931130a4c4995d4af64fce84e8309d82e28b87"
+        "hash": "d8a760899c905ec5a15e0d212432af25d7f0b614c7ae634224dffa77837bb03c"
       }
     }
   },
