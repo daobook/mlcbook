@@ -1,4 +1,4 @@
-# 学习
+# 学习教程
 
 ```{toctree}
 :maxdepth: 2
@@ -6,5 +6,4 @@
 :hidden:
 
 *
-tutorial/index
 ```
